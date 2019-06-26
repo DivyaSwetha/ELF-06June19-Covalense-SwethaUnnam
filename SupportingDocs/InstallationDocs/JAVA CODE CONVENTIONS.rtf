@@ -1,0 +1,358 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil Times New Roman;}{\f2\fnil\fcharset2 Symbol;}}
+{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\b\f0\fs32\lang9 JAVA CODE CONVENTIONS\par
+
+\pard\sa200\sl276\slmult1\fs28 INTRODUCTION:\fs32\par
+\b0\fs24 Code conventions are important to programmers for a number of reasons:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1  Code conventions improve the readability of the software, allowing engineers to understand new code more quickly and thoroughly.\par
+{\pntext\f2\'B7\tab}\f1  Hardly any software is maintained for its whole life by the original author.\f0\par
+
+\pard\sa200\sl276\slmult1\b\fs28\lang1033 JAVA SOURCE FILE EXAMPLE:-\lang9\par
+\b0\fs24\lang1033 Before discussing about code conventions, let us have a look on format of simple java code ( example 1),\par
+/*\par
+ * Classname\par
+*\par
+ * Version info\par
+ *\par
+ * Copyright notice\par
+ */package java.blah;\par
+import java.blah.blahdy.BlahBlah;\par
+/**\par
+ * Class description goes here.\par
+ *\par
+ * @version 1.10 04 Oct 1996\par
+ * @author Firstname Lastname\par
+ */\par
+public class Blah extends SomeClass \{\par
+ /* A class implementation comment can go here. */\par
+ /** classVar1 documentation comment */\par
+ public static int classVar1;\par
+ /*** classVar2 documentation comment that happens to be\par
+ * more than one line long\par
+ */\par
+ private static Object classVar2;\par
+ /** instanceVar1 documentation comment */\par
+ public Object instanceVar1;\par
+ /** instanceVar2 documentation comment */\par
+ protected int instanceVar2;\par
+ /** instanceVar3 documentation comment */\par
+ private Object[] instanceVar3;\par
+11 - Code Examples\par
+20\par
+ /**\par
+ * ...method Blah documentation comment...\par
+ */\par
+ public Blah() \{\par
+ // ...implementation goes here...\par
+ \}\par
+ /**\par
+ * ...method doSomething documentation comment...\par
+ */\par
+ public void doSomething() \{\par
+ // ...implementation goes here...\par
+ \}\par
+ /**\par
+ * ...method doSomethingElse documentation comment...\par
+ * @param someParam description\par
+ */\par
+ public void doSomethingElse(Object someParam) \{\par
+ // ...implementation goes here...\par
+ \}\par
+\}\par
+\b\fs28 CODE CONVENTIONS FOR DIFFERENT CATEGORIES:\par
+1- File Names:\par
+\b0\fs24 This section lists commonly used file suffixes and names.\par
+\b  1.1 File Suffixes\par
+
+\pard\sa200\sl276\slmult1\qc File Type        Suffix\b0\par
+Java source          .java\par
+Java bytecode        .class\par
+
+\pard\sa200\sl276\slmult1\b\fs28 2 - File Organization:\par
+\b0\fs24 A file consists of sections that should be separated by blank lines and an optional comment identifying each section.\par
+Files longer than 2000 lines are cumbersome and should be avoided.\par
+\b  2.1 Java Source Files:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1  \b0 When private classes and interfaces are associated with a public class, you can put them in the same source file as the public class. \par
+{\pntext\f2\'B7\tab}The public class should be the first class or interface in the file.\par
+
+\pard\sa200\sl276\slmult1\b\i Java source files have the following ordering:\par
+\b0\i0 1.\f1  Beginning comments \par
+\f0 2.\f1  Package and Import statements; for example:\par
+\f0\tab\f1 import java.applet.Applet;\par
+\f0\tab\f1 import java.awt.*;\par
+\f0\tab\f1 import java.net.*;\par
+\f0 3.\f1 Class and interface declarations \par
+\b\f0 1.Beginning comments:\par
+\b0 All source files should begin with a c-style comment that lists the programmer(s), the date, a copyright notice, and also a brief description of the purpose of the program. For example:\par
+/*\par
+ * Classname\par
+*\par
+ * Version info\par
+ *\par
+ * Copyright notice\par
+ */\par
+\b 2. Package and Import Statements:\par
+\b0\lang9 The first non-comment line of most Java source files is a package statement. After that, import statements can follow. For example:\par
+package java.awt;\par
+import java.awt.peer.CanvasPeer;\par
+\b 3. Class and Interface Declarations:\par
+\b0 The following table describes the parts of a class or interface declaration, in the order that they should appear.\par
+\b\i 1.Class/interface implementation comment (/*...*/), if necessary: \b0\i0 This comment should contain any class-wide or interface-wide information that wasn\rquote t appropriate for the class/interface documentation comment.\par
+\b\i 2. Class (static) variables: \b0\i0 First the public class variables, then the protected, and then the private.\par
+\b\i\lang1033 3.\f1\lang9  Methods\f0\lang1033 :\f1\lang9  \b0\i0 These methods should be grouped by functionality rather than by scope or accessibility. For\f0\lang1033  \f1\lang9 example, a private class method can be in\par
+between two public instance methods. The goal is\par
+to make reading and understanding the code easier\b\f0\par
+\fs28 3.INDENTATION:\par
+\i\fs24 Indentation: \b0\i0 Four spaces should be used as the unit of indentation. The exact construction of the indentation (spaces vs. tabs) is unspecified. Tabs must be set exactly every 8 spaces (not 4).\par
+\b\i  3.1.Line Length:\par
+\b0\i0 Avoid lines longer than 80 characters, since they\rquote re not handled well by many terminals and tools.\par
+\b\i\f1  \f0\lang1033 3.2\f1\lang9  Wrapping Lines\f0\lang1033 :\f1\lang9\par
+\b0\i0 When an expression will not fit on a single line, break it according to these general principles:\par
+\bullet  Break after a comma.\par
+\bullet  Break before an operator.\par
+
+\pard\sa200\sl276\slmult1\qc\f0\lang1033 (or)\f1\lang9\par
+
+\pard\sa200\sl276\slmult1\bullet  If the above rules lead to confusing code or to code that\rquote s squished up against the right\f0\lang1033  \f1\lang9 margin, just indent 8 spaces instead.\par
+Here are some examples of breaking method calls:\par
+\f0\lang1033 eg.1. \f1\lang9 function(longExpression1, longExpression2, longExpression3,\par
+ longExpression4, longExpression5);\par
+\f0\lang1033 eg2. \f1\lang9 var = function1(longExpression1,\par
+ function2(longExpression2,\par
+ longExpression3));\par
+\f0\lang1033 ***\ul\f1\lang9 Line wrapping for if statements\ulnone  should generally use the 8-space rule, since conventional (4\f0\lang1033  \f1\lang9 space) indentation makes seeing the body difficult. For example:\par
+//DON\rquote T USE THIS INDENTATION\par
+if ((condition1 && condition2)\par
+ || (condition3 && condition4)\par
+ ||!(condition5 && condition6)) \{ \f0\lang1033             \f1\lang9 //BAD WRAPS\par
+ doSomethingAboutIt();\f0\lang1033                           \f1\lang9  //MAKE THIS LINE EASY TO MISS\par
+\}\par
+//USE THIS INDENTATION INSTEAD\par
+if ((condition1 && condition2)\par
+\f0\lang1033\tab\f1\lang9  || (condition3 && condition4)\par
+\f0\lang1033\tab\f1\lang9  ||!(condition5 && condition6)) \{\par
+ doSomethingAboutIt();\par
+\}\par
+//OR USE THIS\par
+if ((condition1 && condition2) || (condition3 && condition4)\par
+ \f0\lang1033\tab\f1\lang9 ||!(condition5 && condition6)) \{\par
+ doSomethingAboutIt();\par
+\}\par
+\f0\lang1033 ***\f1\lang9 Here are three acceptable ways \ul to format ternary expressions\ulnone :\par
+alpha = (aLongBooleanExpression) ? beta : gamma;\par
+alpha = (aLongBooleanExpression) ? beta\par
+ \f0\lang1033\tab\tab\tab\tab           \f1\lang9 : gamma;\par
+alpha = (aLongBooleanExpression)\par
+\f0\lang1033\tab\f1\lang9  ? beta\par
+
+\pard\li720\sa200\sl276\slmult1  : gamma;\par
+
+\pard\sa200\sl276\slmult1\b\f0\fs28\lang1033 5.COMMENTS:\b0\fs24\par
+Java programs can have two kinds of comments,\par
+1. implementation comments and\par
+2.documentation comments.\par
+\b\i Implementation comments:\b0\i0  \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 Implementation comments are those found in C++, which are delimited by /*...*/,\par
+{\pntext\f2\'B7\tab}Implementation comments are mean for commenting out code or for comments about the particular implementation.\par
+
+\pard\sa200\sl276\slmult1\b\i Documentation comments:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0\i0  Documentation comments (known as \ldblquote doc comments\rdblquote ) are Java-only, and are delimited by /**...*/.\par
+{\pntext\f2\'B7\tab}Doc comments are meant to describe the specification of the code, from an implementation-free perspective. to be read by developers who might not necessarily have the source code at hand.\b\i\par
+
+\pard\sa200\sl276\slmult1\i0\fs22  5.1 IMPLEMENTATION COMMENT FORMATS:\par
+\b0\fs24 Programs can have four styles of implementation comments: \par
+1.block comments, \par
+2.single-line comments, \par
+3.trailing comments and \par
+4.end-of-line comments.\par
+\b\i 1.Block Comments:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1  \b0\i0 Block comments are used to provide descriptions of files, methods, data structures and algorithms. Block comments should be used at the beginning of each file and before each method.\par
+{\pntext\f2\'B7\tab}A block comment should be preceded by a blank line to set it apart from the rest of the code\par
+
+\pard\sa200\sl276\slmult1 .\tab\tab\tab\tab /*\par
+ \tab\tab\tab\tab * Here is a block comment.\par
+ \tab\tab\tab\tab */\par
+\b\i 2 Single-Line Comments:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0\i0 Short comments can appear on a single line indented to the level of the code that follows. \par
+{\pntext\f2\'B7\tab}If a comment can\rquote t be written in a single line, it should follow the block comment format.\b\i\par
+
+\pard\sa200\sl276\slmult1\b0\i0                 if (condition) \{\par
+   \tab\tab\tab   /* Handle the condition. */\par
+ \tab\tab\tab\tab ...\par
+\tab\tab\tab    \} \b\i\par
+3 Trailing Comments:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0\i0 Very short comments can appear on the same line as the code they describe, but should be shifted far enough to separate them from the statements.\par
+
+\pard\sa200\sl276\slmult1\tab\tab if (a == 2) \{\par
+\tab  \tab return TRUE;\tab\tab  /* special case */\par
+\tab\tab\} else \{\par
+ \tab\tab return isprime(a); \tab /* works only for odd a */\par
+\tab\tab\}\par
+\b\i 4 End-Of-Line Comments:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0\i0 The // comment delimiter begins a comment that continues to the newline.\par
+{\pntext\f2\'B7\tab} It can comment out a complete line or only a partial line.\par
+{\pntext\f2\'B7\tab} It shouldn\rquote t be used on consecutive multiple lines for text comments; however, it can be used in consecutive multiple lines for commenting outsections of code. \b\i\par
+{\pntext\f2\'B7\tab}\b0\i0  Examples of all three styles follow:\par
+
+\pard\sa200\sl276\slmult1\tab\tab if (foo > 1) \{\par
+ \tab\tab\tab // Do a double-flip.\par
+\tab\tab\tab  ...\par
+
+\pard\li1440\sa200\sl276\slmult1\}\par
+
+\pard\sa200\sl276\slmult1\tab\tab else\par
+
+\pard\li1440\sa200\sl276\slmult1  return false; \tab\tab // Explain why here.\par
+//if (bar > 1) \{\par
+//\par
+//\tab\tab  // Do a triple-flip.\par
+// ...\par
+//\}\par
+//else\par
+// return false;\par
+
+\pard\sa200\sl276\slmult1\b\fs28 5.2 DOCUMENTATION COMMENTS:\par
+\b0\fs24 Doc comments describe Java classes, interfaces, constructors, methods, and fields. Each doc comment is set inside the comment delimiters /**...*/, with one comment per API. This comment should appear just before the declaration:\par
+\tab\tab /**\par
+ \tab\tab * The Example class provides ...\par
+ \tab\tab */\par
+\tab\tab class Example \{ ...\par
+Doc comments should not be positioned inside a method or constructor definition block, because Java associates documentation comments with the first declaration after the comment.\b\fs28\par
+6.DECLARATIONS:\par
+\fs24 6.1 Number Per Line:\par
+\b0 One declaration per line is recommended since it encourages commenting. In other words,\par
+\tab\tab\tab int level;\tab  // indentation level\par
+\tab\tab\tab int size; \tab // size of table\par
+\tab is preferred over\par
+\tab\tab\tab int level, size;\par
+Notwe: Do not put different types on the same line. Example:\par
+\tab\tab int foo, fooarray[]; //WRONG!\par
+\b  6.2 Initialization:\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0 Try to initialize local variables where they\rquote re declared.\par
+{\pntext\f2\'B7\tab} The only reason not to initialize a variable where it\rquote s declared is if the initial value depends on some computation occurring first.\b\f1\lang9\par
+
+\pard\sa200\sl276\slmult1\f0\lang1033  6.3 Class and Interface Declarations:\par
+\b0 When coding Java classes and interfaces, the following formatting rules should be followed:\par
+\f1\bullet  No space between a method name and the parenthesis \ldblquote (\ldblquote  starting its parameter list\par
+\bullet  Open brace \ldblquote\{\rdblquote  appears at the end of the same line as the declaration statement\par
+\bullet  Closing brace \ldblquote\}\rdblquote  starts a line by itself indented to match its corresponding opening\par
+statement, except when it is a null statement the \ldblquote\}\rdblquote  should appear immediately after the\par
+\ldblquote\{\ldblquote\par
+\f0\tab\f1 class Sample extends Object \{\par
+\f0\tab\f1  int ivar1;\par
+ \f0\tab\f1 int ivar2;\par
+ \f0\tab\f1 Sample(int i, int j) \{\par
+
+\pard\li720\sa200\sl276\slmult1  ivar1 = i;\par
+ ivar2 = j;\par
+
+\pard\sa200\sl276\slmult1  \f0\tab\f1\par
+
+\pard\li720\sa200\sl276\slmult1  int emptyMethod() \{\}\par
+ ...\par
+\}\par
+
+\pard\sa200\sl276\slmult1\bullet  Methods are separated by a blank line\par
+\b\f0\fs28 7.STATEMENTS:\par
+\fs24 7.1 Simple Statements:\par
+\b0 Each line should contain at most one statement. Example:\par
+argv++; argc--; // AVOID\fs28 !\par
+\b\fs24  7.2 Compound Statements:\par
+\b0 Compound statements are statements that contain lists of statements enclosed in braces\par
+\ldblquote\{ statements \}\rdblquote . See the following sections for examples.\par
+\f1\bullet  The enclosed statements should be indented one more level than the compound statement.\par
+\bullet  The opening brace should be at the end of the line that begins the compound statement; the\par
+closing brace should begin a line and be indented to the beginning of the compound\par
+statement.\par
+\bullet  Braces are used around all statements, even singletons, when they are part of a control\par
+structure, such as a if-else or for statement. This makes it easier to add statements\par
+without accidentally introducing bugs due to forgetting to add braces.\par
+\b 7.3 return Statements\par
+\b0 A return statement with a value should not use parentheses unless they make the return value\par
+more obvious in some way. Example:\par
+return;\par
+return myDisk.size();\par
+return (size ? size : defaultSize);\par
+\b  7.4 if, if-else, if-else-if-else Statements\par
+\b0 The if-else class of statements should have the following form:\par
+if (condition) \{\par
+statements;\par
+\}\par
+if (condition) \{\par
+statements;\par
+\} else \{\par
+statements;\par
+\}\par
+if (condition) \{\par
+statements;\par
+\} else if (condition) \{\par
+statements;\par
+\} else if (condition) \{\par
+statements;\par
+\}\par
+Note: if statements always use braces \{\}. Avoid the following error-prone form:\par
+if (condition) //AVOID! THIS OMITS THE BRACES \{\}!\par
+statement;\par
+\b  7.5 for Statements\par
+\b0 A for statement should have the following form:\par
+for (initialization; condition; update) \{\par
+statements;\par
+\}\par
+An empty for statement (one in which all the work is done in the initialization, condition, and\par
+update clauses) should have the following form:\par
+for (initialization; condition; update);\par
+When using the comma operator in the initialization or update clause of a for statement, avoid\par
+the complexity of using more than three variables. If needed, use separate statements before\par
+the for loop (for the initialization clause) or at the end of the loop (for the update clause).\par
+\b  7.6 while Statements\par
+\b0 A while statement should have the following form:\par
+while (condition) \{\par
+statements;\par
+\}\par
+An empty while statement should have the following form:\par
+while (condition);\par
+\b  7.7 do-while Statements\par
+\b0 A do-while statement should have the following form:\par
+do \{\par
+statements;\par
+\} while (condition);\par
+\b  7.8 switch Statements\par
+\b0 A switch statement should have the following form:\par
+switch (condition) \{\par
+case ABC:\par
+statements;\par
+ /* falls through */\par
+case DEF:\par
+statements;\par
+ break;\par
+case XYZ:\par
+statements;\par
+ break;\par
+default:\par
+statements;\par
+ break;\par
+\}\par
+Every time a case falls through (doesn\rquote t include a break statement), add a comment where the\par
+break statement would normally be. This is shown in the preceding code example with the\par
+/* falls through */ comment.\par
+Every switch statement should include a default case. The break in the default case is\par
+redundant, but it prevents a fall-through error if later another case is added.\par
+\b  7.9 try-catch Statements\par
+\b0 A try-catch statement should have the following format:\par
+try \{\par
+statements;\par
+\} catch (ExceptionClass e) \{\par
+statements;\par
+\}\par
+\b\fs28\lang9\par
+}
+ 

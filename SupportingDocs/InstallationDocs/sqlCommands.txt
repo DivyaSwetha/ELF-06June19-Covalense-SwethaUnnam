@@ -1,0 +1,3224 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> create database Employee;
+Query OK, 1 row affected (0.31 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+
+mysql> use employee;
+Database changed
+
+mysql> create table employe_details(id int,First_name varchar(50),Last_name varchar(50),salary int,Job_type varchar(50),dept_no int,email varchar(100));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employe_details    |
++--------------------+
+1 row in set (0.10 sec)
+
+mysql> desc employe_details;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | YES  |     | NULL    |       |
+| First_name | varchar(50)  | YES  |     | NULL    |       |
+| Last_name  | varchar(50)  | YES  |     | NULL    |       |
+| salary     | int(11)      | YES  |     | NULL    |       |
+| Job_type   | varchar(50)  | YES  |     | NULL    |       |
+| dept_no    | int(11)      | YES  |     | NULL    |       |
+| email      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.07 sec)
+
+mysql> insert into employe_details values(1,"ram","manch",50000,"Senior software engineer",100,"ram@gmail.com");
+Query OK, 1 row affected (0.18 sec)
+
+
+mysql> insert into employe_details values(2,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com");
+Query OK, 1 row affected (0.15 sec)
+
+
+mysql> insert into employe_details values(3,"lakshman","ban",30000," Assistant software engineer",103,"lakshman@gmail.com");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employe_details where id=1;
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+
+mysql> select salary,first_name,last_name,job_type from employe_details where id=1;
++--------+------------+-----------+--------------------------+
+| salary | first_name | last_name | job_type                 |
++--------+------------+-----------+--------------------------+
+|  50000 | ram        | manch     | Senior software engineer |
++--------+------------+-----------+--------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name="ram";
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.05 sec)
+
+
+mysql> select First_name as Name from employe_details; (Changing column_name using alias name i.e., temporary name)
++----------+
+| Name     |
++----------+
+| ram      |
+| seetha   |
+| lakshman |
++----------+
+
+mysql> select salary s from employe_details;  (we can skip using of 'As' and directly give the alias name)
++-------+
+| s     |
++-------+
+| 50000 |
+| 40000 |
+| 30000 |
++-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select First_name,Last_name,salary,job_type,dept_no,email from employe_details as EMP;   (giving alias name to table)
++------------+-----------+--------+------------------------------+---------+--------------------+
+| First_name | Last_name | salary | job_type                     | dept_no | email              |
++------------+-----------+--------+------------------------------+---------+--------------------+
+| ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+| seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+| lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into employe_details values(4,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com"); (adding same data with diff id to check "distinct" functionality)
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct dept_no from employe_details;    (gives only unique values, wont allow duplicates)
++---------+
+| dept_no |
++---------+
+|     100 |
+|     101 |
+|     103 |
++---------+
+3 rows in set (0.09 sec)
+
+mysql> select distinct First_name from employe_details;
++------------+
+| First_name |
++------------+
+| ram        |
+| seetha     |
+| lakshman   |
++------------+
+3 rows in set (0.07 sec)
+
+
+mysql> select distinct first_name,salary,dept_no from employe_details;   ( distinct on multiple columns)
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
++------------+--------+---------+
+3 rows in set (0.05 sec)
+
+mysql> update employe_details set salary=20000 where id=4;  (changing salary of employee with id=4)
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct first_name,salary,dept_no from employe_details;  (returning duplicates also, because every filed value should be same while retrieving multiple colomns using"distinct")
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
+| seetha     |  20000 |     101 |
++------------+--------+---------+
+4 rows in set (0.00 sec)
+
+Operat0rs:-
+
+mysql> select salary+10000 from employe_details;
++--------------+
+| salary+10000 |
++--------------+
+|        60000 |
+|        50000 |
+|        40000 |
+|        30000 |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select salary+10000 as Increment from employe_details;  (using'+'and alias name)
++-----------+
+| Increment |
++-----------+
+|     60000 |
+|     50000 |
+|     40000 |
+|     30000 |
++-----------+
+4 rows in set (0.08 sec)
+
+mysql> select id,first_name,salary+10000 from employe_details;
++------+------------+--------------+
+| id   | first_name | salary+10000 |
++------+------------+--------------+
+|    1 | ram        |        60000 |
+|    2 | seetha     |        50000 |
+|    3 | lakshman   |        40000 |
+|    4 | seetha     |        30000 |
++------+------------+--------------+
+4 rows in set (0.00 sec)
+mysql> select id,first_name,salary+10000 as increment from employe_details;
++------+------------+-----------+
+| id   | first_name | increment |
++------+------------+-----------+
+|    1 | ram        |     60000 |
+|    2 | seetha     |     50000 |
+|    3 | lakshman   |     40000 |
+|    4 | seetha     |     30000 |
++------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary-10000  from employe_details;
++------+------------+--------------+
+| id   | first_name | salary-10000 |
++------+------------+--------------+
+|    1 | ram        |        40000 |
+|    2 | seetha     |        30000 |
+|    3 | lakshman   |        20000 |
+|    4 | seetha     |        10000 |
++------+------------+--------------+
+4 rows in set (0.00 sec
+
+mysql> select id,first_name as Name,salary-10000 as decrement from employe_details;
++------+----------+-----------+
+| id   | Name     | decrement |
++------+----------+-----------+
+|    1 | ram      |     40000 |
+|    2 | seetha   |     30000 |
+|    3 | lakshman |     20000 |
+|    4 | seetha   |     10000 |
++------+----------+-----------+
+4 rows in set (0.07 sec)
+
+mysql> select id,first_name ,salary*2  from employe_details;
++------+------------+----------+
+| id   | first_name | salary*2 |
++------+------------+----------+
+|    1 | ram        |   100000 |
+|    2 | seetha     |    80000 |
+|    3 | lakshman   |    60000 |
+|    4 | seetha     |    40000 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary*2 as doubled from employe_details;
++------+------------+---------+
+| id   | first_name | doubled |
++------+------------+---------+
+|    1 | ram        |  100000 |
+|    2 | seetha     |   80000 |
+|    3 | lakshman   |   60000 |
+|    4 | seetha     |   40000 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary/2  from employe_details;
++------+------------+------------+
+| id   | first_name | salary/2   |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.06 sec)
+
+mysql> select id,first_name ,salary/2  as halved from employe_details;
++------+------------+------------+
+| id   | first_name | halved     |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 from employe_details;
++------+------------+----------+
+| id   | first_name | salary%2 |
++------+------------+----------+
+|    1 | ram        |        0 |
+|    2 | seetha     |        0 |
+|    3 | lakshman   |        0 |
+|    4 | seetha     |        0 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+COMPARISION OPERATORS:-
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name from employe_details where salary<10000;
+Empty set (0.00 sec)						(there is no employee with salary less than 10000, hence itr is showing empty set)
+
+mysql> select first_name, salary from employe_details where salary!=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<>30000;    (<> works same as !=)
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| lakshman   |  30000 |
+| seetha     |  20000 |
++------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary>=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| lakshman   |  30000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employe_details(id,first_name,last_name,job_type,dept_no,email) values(5,"mar","manch","Senior software engineer",100,"mmm@gmail.com");
+Query OK, 1 row affected (0.15 sec)  (inserting null value....to do so, dont specify any value in that column)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.07 sec)
+
+mysql> select * from employe_details where salary=NULL;  (if use = it will not give null valued records)
+Empty set (0.05 sec)
+
+mysql> select * from employe_details where salary<=>NULL; (if use = it will gives null valued records)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+LOGICAL OPERATORS:-
+mysql> select * from employe_details where salary=50000 and dept_no=100;		( AND both conditions should be true)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 and job_type="software engineer";
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 or job_type="software engineer";  ( OR both conditions should be true)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where not dept_no>=103;  (not is used to check the reverse condition)
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+4 rows in set (0.00 sec)
+
+SPECIAL OPEARTORS:-IN, BETWEEN(between and)
+
+mysql> select * from employe_details where dept_no in(100,103);     (gives records of dept_no 100 and 103)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where First_name in('ram','lakshman');		 (gives records whose first_name is ram and lakshman )
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where dept_no in(100,101,103);
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary between 10000 and 30000; 		(gives records whose values are from 10000 to 30000)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where id between 1 and 5;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.19 sec)
+
+mysql> select * from employe_details where id not in(1,2);			//NOT IN
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where id not between 1 and 3;		//NOT BETWEEN AND
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where salary not between 10000 and 30000;
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where salary is null;				//is null
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  is null;
+Empty set (0.00 sec)
+
+mysql> select * from employe_details where salary is not null;				// is not null
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like 'r%';			//like
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.07 sec)
+mysql> select * from employe_details where first_name like '%a';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '%ee%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where last_name like '%ba%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+mysql> insert into employe_details values(6,'arjun','rjpt',10000,'Support engineer',102,'aaa@gmail.com');
+Query OK, 1 row affected (0.28 sec)
+
+mysql> select *from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%n';
++------+------------+-----------+--------+------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type         | dept_no | email         |
++------+------------+-----------+--------+------------------+---------+---------------+
+|    6 | arjun      | rjpt      |  10000 | Support engineer |     102 | aaa@gmail.com |
++------+------------+-----------+--------+------------------+---------+---------------+
+1 row in set (0.00 sec)
+mysql> select * from employe_details where first_name not like 'a%n';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%' or first_name like 's%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
+|    6 | arjun      | rjpt      |  10000 | Support engineer  |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer  |     106 | bca@gmail.com    |
++------+------------+-----------+--------+-------------------+---------+------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '___%';   //names with atleast 3 characters(use 3 underscores)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | aman       | rmngr     |  10000 | Support engineer             |     106 | bca@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__m';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__k%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name not like '__k%';
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
+|    6 | arjun      | rjpt      |  10000 | Support engineer         |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer         |     106 | bca@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name  like '_a_';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+2 rows in set (0.00 sec)
+FUNCTIONS:-
+AVG()
+
+mysql> select avg(salary) from employe_details;
++-------------+
+| avg(salary) |
++-------------+
+|  26666.6667 |
++-------------+
+1 row in set (0.02 sec)
+
+MAX():-
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> create database Employee;
+Query OK, 1 row affected (0.31 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+
+mysql> use employee;
+Database changed
+
+mysql> create table employe_details(id int,First_name varchar(50),Last_name varchar(50),salary int,Job_type varchar(50),dept_no int,email varchar(100));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employe_details    |
++--------------------+
+1 row in set (0.10 sec)
+
+mysql> desc employe_details;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | YES  |     | NULL    |       |
+| First_name | varchar(50)  | YES  |     | NULL    |       |
+| Last_name  | varchar(50)  | YES  |     | NULL    |       |
+| salary     | int(11)      | YES  |     | NULL    |       |
+| Job_type   | varchar(50)  | YES  |     | NULL    |       |
+| dept_no    | int(11)      | YES  |     | NULL    |       |
+| email      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.07 sec)
+
+mysql> insert into employe_details values(1,"ram","manch",50000,"Senior software engineer",100,"ram@gmail.com");
+Query OK, 1 row affected (0.18 sec)
+
+
+mysql> insert into employe_details values(2,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com");
+Query OK, 1 row affected (0.15 sec)
+
+
+mysql> insert into employe_details values(3,"lakshman","ban",30000," Assistant software engineer",103,"lakshman@gmail.com");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employe_details where id=1;
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+
+mysql> select salary,first_name,last_name,job_type from employe_details where id=1;
++--------+------------+-----------+--------------------------+
+| salary | first_name | last_name | job_type                 |
++--------+------------+-----------+--------------------------+
+|  50000 | ram        | manch     | Senior software engineer |
++--------+------------+-----------+--------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name="ram";
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.05 sec)
+
+
+mysql> select First_name as Name from employe_details; (Changing column_name using alias name i.e., temporary name)
++----------+
+| Name     |
++----------+
+| ram      |
+| seetha   |
+| lakshman |
++----------+
+
+mysql> select salary s from employe_details;  (we can skip using of 'As' and directly give the alias name)
++-------+
+| s     |
++-------+
+| 50000 |
+| 40000 |
+| 30000 |
++-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select First_name,Last_name,salary,job_type,dept_no,email from employe_details as EMP;   (giving alias name to table)
++------------+-----------+--------+------------------------------+---------+--------------------+
+| First_name | Last_name | salary | job_type                     | dept_no | email              |
++------------+-----------+--------+------------------------------+---------+--------------------+
+| ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+| seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+| lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into employe_details values(4,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com"); (adding same data with diff id to check "distinct" functionality)
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct dept_no from employe_details;    (gives only unique values, wont allow duplicates)
++---------+
+| dept_no |
++---------+
+|     100 |
+|     101 |
+|     103 |
++---------+
+3 rows in set (0.09 sec)
+
+mysql> select distinct First_name from employe_details;
++------------+
+| First_name |
++------------+
+| ram        |
+| seetha     |
+| lakshman   |
++------------+
+3 rows in set (0.07 sec)
+
+
+mysql> select distinct first_name,salary,dept_no from employe_details;   ( distinct on multiple columns)
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
++------------+--------+---------+
+3 rows in set (0.05 sec)
+
+mysql> update employe_details set salary=20000 where id=4;  (changing salary of employee with id=4)
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct first_name,salary,dept_no from employe_details;  (returning duplicates also, because every filed value should be same while retrieving multiple colomns using"distinct")
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
+| seetha     |  20000 |     101 |
++------------+--------+---------+
+4 rows in set (0.00 sec)
+
+Operat0rs:-
+
+mysql> select salary+10000 from employe_details;
++--------------+
+| salary+10000 |
++--------------+
+|        60000 |
+|        50000 |
+|        40000 |
+|        30000 |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select salary+10000 as Increment from employe_details;  (using'+'and alias name)
++-----------+
+| Increment |
++-----------+
+|     60000 |
+|     50000 |
+|     40000 |
+|     30000 |
++-----------+
+4 rows in set (0.08 sec)
+
+mysql> select id,first_name,salary+10000 from employe_details;
++------+------------+--------------+
+| id   | first_name | salary+10000 |
++------+------------+--------------+
+|    1 | ram        |        60000 |
+|    2 | seetha     |        50000 |
+|    3 | lakshman   |        40000 |
+|    4 | seetha     |        30000 |
++------+------------+--------------+
+4 rows in set (0.00 sec)
+mysql> select id,first_name,salary+10000 as increment from employe_details;
++------+------------+-----------+
+| id   | first_name | increment |
++------+------------+-----------+
+|    1 | ram        |     60000 |
+|    2 | seetha     |     50000 |
+|    3 | lakshman   |     40000 |
+|    4 | seetha     |     30000 |
++------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary-10000  from employe_details;
++------+------------+--------------+
+| id   | first_name | salary-10000 |
++------+------------+--------------+
+|    1 | ram        |        40000 |
+|    2 | seetha     |        30000 |
+|    3 | lakshman   |        20000 |
+|    4 | seetha     |        10000 |
++------+------------+--------------+
+4 rows in set (0.00 sec
+
+mysql> select id,first_name as Name,salary-10000 as decrement from employe_details;
++------+----------+-----------+
+| id   | Name     | decrement |
++------+----------+-----------+
+|    1 | ram      |     40000 |
+|    2 | seetha   |     30000 |
+|    3 | lakshman |     20000 |
+|    4 | seetha   |     10000 |
++------+----------+-----------+
+4 rows in set (0.07 sec)
+
+mysql> select id,first_name ,salary*2  from employe_details;
++------+------------+----------+
+| id   | first_name | salary*2 |
++------+------------+----------+
+|    1 | ram        |   100000 |
+|    2 | seetha     |    80000 |
+|    3 | lakshman   |    60000 |
+|    4 | seetha     |    40000 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary*2 as doubled from employe_details;
++------+------------+---------+
+| id   | first_name | doubled |
++------+------------+---------+
+|    1 | ram        |  100000 |
+|    2 | seetha     |   80000 |
+|    3 | lakshman   |   60000 |
+|    4 | seetha     |   40000 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary/2  from employe_details;
++------+------------+------------+
+| id   | first_name | salary/2   |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.06 sec)
+
+mysql> select id,first_name ,salary/2  as halved from employe_details;
++------+------------+------------+
+| id   | first_name | halved     |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 from employe_details;
++------+------------+----------+
+| id   | first_name | salary%2 |
++------+------------+----------+
+|    1 | ram        |        0 |
+|    2 | seetha     |        0 |
+|    3 | lakshman   |        0 |
+|    4 | seetha     |        0 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+COMPARISION OPERATORS:-
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name from employe_details where salary<10000;
+Empty set (0.00 sec)						(there is no employee with salary less than 10000, hence itr is showing empty set)
+
+mysql> select first_name, salary from employe_details where salary!=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<>30000;    (<> works same as !=)
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| lakshman   |  30000 |
+| seetha     |  20000 |
++------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary>=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| lakshman   |  30000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employe_details(id,first_name,last_name,job_type,dept_no,email) values(5,"mar","manch","Senior software engineer",100,"mmm@gmail.com");
+Query OK, 1 row affected (0.15 sec)  (inserting null value....to do so, dont specify any value in that column)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.07 sec)
+
+mysql> select * from employe_details where salary=NULL;  (if use = it will not give null valued records)
+Empty set (0.05 sec)
+
+mysql> select * from employe_details where salary<=>NULL; (if use = it will gives null valued records)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+LOGICAL OPERATORS:-
+mysql> select * from employe_details where salary=50000 and dept_no=100;		( AND both conditions should be true)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 and job_type="software engineer";
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 or job_type="software engineer";  ( OR both conditions should be true)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where not dept_no>=103;  (not is used to check the reverse condition)
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+4 rows in set (0.00 sec)
+
+SPECIAL OPEARTORS:-IN, BETWEEN(between and)
+
+mysql> select * from employe_details where dept_no in(100,103);     (gives records of dept_no 100 and 103)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where First_name in('ram','lakshman');		 (gives records whose first_name is ram and lakshman )
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where dept_no in(100,101,103);
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary between 10000 and 30000; 		(gives records whose values are from 10000 to 30000)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where id between 1 and 5;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.19 sec)
+
+mysql> select * from employe_details where id not in(1,2);			//NOT IN
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where id not between 1 and 3;		//NOT BETWEEN AND
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where salary not between 10000 and 30000;
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where salary is null;				//is null
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  is null;
+Empty set (0.00 sec)
+
+mysql> select * from employe_details where salary is not null;				// is not null
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like 'r%';			//like
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.07 sec)
+mysql> select * from employe_details where first_name like '%a';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '%ee%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where last_name like '%ba%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+mysql> insert into employe_details values(6,'arjun','rjpt',10000,'Support engineer',102,'aaa@gmail.com');
+Query OK, 1 row affected (0.28 sec)
+
+mysql> select *from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%n';
++------+------------+-----------+--------+------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type         | dept_no | email         |
++------+------------+-----------+--------+------------------+---------+---------------+
+|    6 | arjun      | rjpt      |  10000 | Support engineer |     102 | aaa@gmail.com |
++------+------------+-----------+--------+------------------+---------+---------------+
+1 row in set (0.00 sec)
+mysql> select * from employe_details where first_name not like 'a%n';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%' or first_name like 's%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
+|    6 | arjun      | rjpt      |  10000 | Support engineer  |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer  |     106 | bca@gmail.com    |
++------+------------+-----------+--------+-------------------+---------+------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '___%';   //names with atleast 3 characters(use 3 underscores)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | aman       | rmngr     |  10000 | Support engineer             |     106 | bca@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__m';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__k%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name not like '__k%';
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
+|    6 | arjun      | rjpt      |  10000 | Support engineer         |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer         |     106 | bca@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name  like '_a_';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+2 rows in set (0.00 sec)
+FUNCTIONS:-
+AVG()
+
+mysql> select avg(salary) from employe_details;
++-------------+
+| avg(salary) |
++-------------+
+|  26666.6667 |
++-------------+
+1 row in set (0.02 sec)
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> create database Employee;
+Query OK, 1 row affected (0.31 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+
+mysql> use employee;
+Database changed
+
+mysql> create table employe_details(id int,First_name varchar(50),Last_name varchar(50),salary int,Job_type varchar(50),dept_no int,email varchar(100));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employe_details    |
++--------------------+
+1 row in set (0.10 sec)
+
+mysql> desc employe_details;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | YES  |     | NULL    |       |
+| First_name | varchar(50)  | YES  |     | NULL    |       |
+| Last_name  | varchar(50)  | YES  |     | NULL    |       |
+| salary     | int(11)      | YES  |     | NULL    |       |
+| Job_type   | varchar(50)  | YES  |     | NULL    |       |
+| dept_no    | int(11)      | YES  |     | NULL    |       |
+| email      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.07 sec)
+
+mysql> insert into employe_details values(1,"ram","manch",50000,"Senior software engineer",100,"ram@gmail.com");
+Query OK, 1 row affected (0.18 sec)
+
+
+mysql> insert into employe_details values(2,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com");
+Query OK, 1 row affected (0.15 sec)
+
+
+mysql> insert into employe_details values(3,"lakshman","ban",30000," Assistant software engineer",103,"lakshman@gmail.com");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employe_details where id=1;
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+
+mysql> select salary,first_name,last_name,job_type from employe_details where id=1;
++--------+------------+-----------+--------------------------+
+| salary | first_name | last_name | job_type                 |
++--------+------------+-----------+--------------------------+
+|  50000 | ram        | manch     | Senior software engineer |
++--------+------------+-----------+--------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name="ram";
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.05 sec)
+
+
+mysql> select First_name as Name from employe_details; (Changing column_name using alias name i.e., temporary name)
++----------+
+| Name     |
++----------+
+| ram      |
+| seetha   |
+| lakshman |
++----------+
+
+mysql> select salary s from employe_details;  (we can skip using of 'As' and directly give the alias name)
++-------+
+| s     |
++-------+
+| 50000 |
+| 40000 |
+| 30000 |
++-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select First_name,Last_name,salary,job_type,dept_no,email from employe_details as EMP;   (giving alias name to table)
++------------+-----------+--------+------------------------------+---------+--------------------+
+| First_name | Last_name | salary | job_type                     | dept_no | email              |
++------------+-----------+--------+------------------------------+---------+--------------------+
+| ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+| seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+| lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into employe_details values(4,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com"); (adding same data with diff id to check "distinct" functionality)
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct dept_no from employe_details;    (gives only unique values, wont allow duplicates)
++---------+
+| dept_no |
++---------+
+|     100 |
+|     101 |
+|     103 |
++---------+
+3 rows in set (0.09 sec)
+
+mysql> select distinct First_name from employe_details;
++------------+
+| First_name |
++------------+
+| ram        |
+| seetha     |
+| lakshman   |
++------------+
+3 rows in set (0.07 sec)
+
+
+mysql> select distinct first_name,salary,dept_no from employe_details;   ( distinct on multiple columns)
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
++------------+--------+---------+
+3 rows in set (0.05 sec)
+
+mysql> update employe_details set salary=20000 where id=4;  (changing salary of employee with id=4)
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct first_name,salary,dept_no from employe_details;  (returning duplicates also, because every filed value should be same while retrieving multiple colomns using"distinct")
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
+| seetha     |  20000 |     101 |
++------------+--------+---------+
+4 rows in set (0.00 sec)
+
+Operat0rs:-
+
+mysql> select salary+10000 from employe_details;
++--------------+
+| salary+10000 |
++--------------+
+|        60000 |
+|        50000 |
+|        40000 |
+|        30000 |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select salary+10000 as Increment from employe_details;  (using'+'and alias name)
++-----------+
+| Increment |
++-----------+
+|     60000 |
+|     50000 |
+|     40000 |
+|     30000 |
++-----------+
+4 rows in set (0.08 sec)
+
+mysql> select id,first_name,salary+10000 from employe_details;
++------+------------+--------------+
+| id   | first_name | salary+10000 |
++------+------------+--------------+
+|    1 | ram        |        60000 |
+|    2 | seetha     |        50000 |
+|    3 | lakshman   |        40000 |
+|    4 | seetha     |        30000 |
++------+------------+--------------+
+4 rows in set (0.00 sec)
+mysql> select id,first_name,salary+10000 as increment from employe_details;
++------+------------+-----------+
+| id   | first_name | increment |
++------+------------+-----------+
+|    1 | ram        |     60000 |
+|    2 | seetha     |     50000 |
+|    3 | lakshman   |     40000 |
+|    4 | seetha     |     30000 |
++------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary-10000  from employe_details;
++------+------------+--------------+
+| id   | first_name | salary-10000 |
++------+------------+--------------+
+|    1 | ram        |        40000 |
+|    2 | seetha     |        30000 |
+|    3 | lakshman   |        20000 |
+|    4 | seetha     |        10000 |
++------+------------+--------------+
+4 rows in set (0.00 sec
+
+mysql> select id,first_name as Name,salary-10000 as decrement from employe_details;
++------+----------+-----------+
+| id   | Name     | decrement |
++------+----------+-----------+
+|    1 | ram      |     40000 |
+|    2 | seetha   |     30000 |
+|    3 | lakshman |     20000 |
+|    4 | seetha   |     10000 |
++------+----------+-----------+
+4 rows in set (0.07 sec)
+
+mysql> select id,first_name ,salary*2  from employe_details;
++------+------------+----------+
+| id   | first_name | salary*2 |
++------+------------+----------+
+|    1 | ram        |   100000 |
+|    2 | seetha     |    80000 |
+|    3 | lakshman   |    60000 |
+|    4 | seetha     |    40000 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary*2 as doubled from employe_details;
++------+------------+---------+
+| id   | first_name | doubled |
++------+------------+---------+
+|    1 | ram        |  100000 |
+|    2 | seetha     |   80000 |
+|    3 | lakshman   |   60000 |
+|    4 | seetha     |   40000 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary/2  from employe_details;
++------+------------+------------+
+| id   | first_name | salary/2   |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.06 sec)
+
+mysql> select id,first_name ,salary/2  as halved from employe_details;
++------+------------+------------+
+| id   | first_name | halved     |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 from employe_details;
++------+------------+----------+
+| id   | first_name | salary%2 |
++------+------------+----------+
+|    1 | ram        |        0 |
+|    2 | seetha     |        0 |
+|    3 | lakshman   |        0 |
+|    4 | seetha     |        0 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+COMPARISION OPERATORS:-
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name from employe_details where salary<10000;
+Empty set (0.00 sec)						(there is no employee with salary less than 10000, hence itr is showing empty set)
+
+mysql> select first_name, salary from employe_details where salary!=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<>30000;    (<> works same as !=)
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| lakshman   |  30000 |
+| seetha     |  20000 |
++------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary>=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| lakshman   |  30000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employe_details(id,first_name,last_name,job_type,dept_no,email) values(5,"mar","manch","Senior software engineer",100,"mmm@gmail.com");
+Query OK, 1 row affected (0.15 sec)  (inserting null value....to do so, dont specify any value in that column)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.07 sec)
+
+mysql> select * from employe_details where salary=NULL;  (if use = it will not give null valued records)
+Empty set (0.05 sec)
+
+mysql> select * from employe_details where salary<=>NULL; (if use = it will gives null valued records)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+LOGICAL OPERATORS:-
+mysql> select * from employe_details where salary=50000 and dept_no=100;		( AND both conditions should be true)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 and job_type="software engineer";
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 or job_type="software engineer";  ( OR both conditions should be true)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where not dept_no>=103;  (not is used to check the reverse condition)
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+4 rows in set (0.00 sec)
+
+SPECIAL OPEARTORS:-IN, BETWEEN(between and)
+
+mysql> select * from employe_details where dept_no in(100,103);     (gives records of dept_no 100 and 103)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where First_name in('ram','lakshman');		 (gives records whose first_name is ram and lakshman )
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where dept_no in(100,101,103);
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary between 10000 and 30000; 		(gives records whose values are from 10000 to 30000)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where id between 1 and 5;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.19 sec)
+
+mysql> select * from employe_details where id not in(1,2);			//NOT IN
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where id not between 1 and 3;		//NOT BETWEEN AND
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where salary not between 10000 and 30000;
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where salary is null;				//is null
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  is null;
+Empty set (0.00 sec)
+
+mysql> select * from employe_details where salary is not null;				// is not null
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like 'r%';			//like
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.07 sec)
+mysql> select * from employe_details where first_name like '%a';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '%ee%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where last_name like '%ba%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+mysql> insert into employe_details values(6,'arjun','rjpt',10000,'Support engineer',102,'aaa@gmail.com');
+Query OK, 1 row affected (0.28 sec)
+
+mysql> select *from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%n';
++------+------------+-----------+--------+------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type         | dept_no | email         |
++------+------------+-----------+--------+------------------+---------+---------------+
+|    6 | arjun      | rjpt      |  10000 | Support engineer |     102 | aaa@gmail.com |
++------+------------+-----------+--------+------------------+---------+---------------+
+1 row in set (0.00 sec)
+mysql> select * from employe_details where first_name not like 'a%n';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%' or first_name like 's%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
+|    6 | arjun      | rjpt      |  10000 | Support engineer  |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer  |     106 | bca@gmail.com    |
++------+------------+-----------+--------+-------------------+---------+------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '___%';   //names with atleast 3 characters(use 3 underscores)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | aman       | rmngr     |  10000 | Support engineer             |     106 | bca@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__m';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__k%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name not like '__k%';
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
+|    6 | arjun      | rjpt      |  10000 | Support engineer         |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer         |     106 | bca@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name  like '_a_';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+2 rows in set (0.00 sec)
+FUNCTIONS:-
+AVG()
+
+mysql> select avg(salary) from employe_details;
++-------------+
+| avg(salary) |
++-------------+
+|  26666.6667 |
++-------------+
+1 row in set (0.02 sec)
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> create database Employee;
+Query OK, 1 row affected (0.31 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+
+mysql> use employee;
+Database changed
+
+mysql> create table employe_details(id int,First_name varchar(50),Last_name varchar(50),salary int,Job_type varchar(50),dept_no int,email varchar(100));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employe_details    |
++--------------------+
+1 row in set (0.10 sec)
+
+mysql> desc employe_details;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | YES  |     | NULL    |       |
+| First_name | varchar(50)  | YES  |     | NULL    |       |
+| Last_name  | varchar(50)  | YES  |     | NULL    |       |
+| salary     | int(11)      | YES  |     | NULL    |       |
+| Job_type   | varchar(50)  | YES  |     | NULL    |       |
+| dept_no    | int(11)      | YES  |     | NULL    |       |
+| email      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.07 sec)
+
+mysql> insert into employe_details values(1,"ram","manch",50000,"Senior software engineer",100,"ram@gmail.com");
+Query OK, 1 row affected (0.18 sec)
+
+
+mysql> insert into employe_details values(2,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com");
+Query OK, 1 row affected (0.15 sec)
+
+
+mysql> insert into employe_details values(3,"lakshman","ban",30000," Assistant software engineer",103,"lakshman@gmail.com");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employe_details where id=1;
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+
+mysql> select salary,first_name,last_name,job_type from employe_details where id=1;
++--------+------------+-----------+--------------------------+
+| salary | first_name | last_name | job_type                 |
++--------+------------+-----------+--------------------------+
+|  50000 | ram        | manch     | Senior software engineer |
++--------+------------+-----------+--------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name="ram";
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.05 sec)
+
+
+mysql> select First_name as Name from employe_details; (Changing column_name using alias name i.e., temporary name)
++----------+
+| Name     |
++----------+
+| ram      |
+| seetha   |
+| lakshman |
++----------+
+
+mysql> select salary s from employe_details;  (we can skip using of 'As' and directly give the alias name)
++-------+
+| s     |
++-------+
+| 50000 |
+| 40000 |
+| 30000 |
++-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select First_name,Last_name,salary,job_type,dept_no,email from employe_details as EMP;   (giving alias name to table)
++------------+-----------+--------+------------------------------+---------+--------------------+
+| First_name | Last_name | salary | job_type                     | dept_no | email              |
++------------+-----------+--------+------------------------------+---------+--------------------+
+| ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+| seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+| lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into employe_details values(4,"seetha","bang",40000,"software engineer",101,"seetha@gmail.com"); (adding same data with diff id to check "distinct" functionality)
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct dept_no from employe_details;    (gives only unique values, wont allow duplicates)
++---------+
+| dept_no |
++---------+
+|     100 |
+|     101 |
+|     103 |
++---------+
+3 rows in set (0.09 sec)
+
+mysql> select distinct First_name from employe_details;
++------------+
+| First_name |
++------------+
+| ram        |
+| seetha     |
+| lakshman   |
++------------+
+3 rows in set (0.07 sec)
+
+
+mysql> select distinct first_name,salary,dept_no from employe_details;   ( distinct on multiple columns)
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
++------------+--------+---------+
+3 rows in set (0.05 sec)
+
+mysql> update employe_details set salary=20000 where id=4;  (changing salary of employee with id=4)
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct first_name,salary,dept_no from employe_details;  (returning duplicates also, because every filed value should be same while retrieving multiple colomns using"distinct")
++------------+--------+---------+
+| first_name | salary | dept_no |
++------------+--------+---------+
+| ram        |  50000 |     100 |
+| seetha     |  40000 |     101 |
+| lakshman   |  30000 |     103 |
+| seetha     |  20000 |     101 |
++------------+--------+---------+
+4 rows in set (0.00 sec)
+
+Operat0rs:-
+
+mysql> select salary+10000 from employe_details;
++--------------+
+| salary+10000 |
++--------------+
+|        60000 |
+|        50000 |
+|        40000 |
+|        30000 |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select salary+10000 as Increment from employe_details;  (using'+'and alias name)
++-----------+
+| Increment |
++-----------+
+|     60000 |
+|     50000 |
+|     40000 |
+|     30000 |
++-----------+
+4 rows in set (0.08 sec)
+
+mysql> select id,first_name,salary+10000 from employe_details;
++------+------------+--------------+
+| id   | first_name | salary+10000 |
++------+------------+--------------+
+|    1 | ram        |        60000 |
+|    2 | seetha     |        50000 |
+|    3 | lakshman   |        40000 |
+|    4 | seetha     |        30000 |
++------+------------+--------------+
+4 rows in set (0.00 sec)
+mysql> select id,first_name,salary+10000 as increment from employe_details;
++------+------------+-----------+
+| id   | first_name | increment |
++------+------------+-----------+
+|    1 | ram        |     60000 |
+|    2 | seetha     |     50000 |
+|    3 | lakshman   |     40000 |
+|    4 | seetha     |     30000 |
++------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary-10000  from employe_details;
++------+------------+--------------+
+| id   | first_name | salary-10000 |
++------+------------+--------------+
+|    1 | ram        |        40000 |
+|    2 | seetha     |        30000 |
+|    3 | lakshman   |        20000 |
+|    4 | seetha     |        10000 |
++------+------------+--------------+
+4 rows in set (0.00 sec
+
+mysql> select id,first_name as Name,salary-10000 as decrement from employe_details;
++------+----------+-----------+
+| id   | Name     | decrement |
++------+----------+-----------+
+|    1 | ram      |     40000 |
+|    2 | seetha   |     30000 |
+|    3 | lakshman |     20000 |
+|    4 | seetha   |     10000 |
++------+----------+-----------+
+4 rows in set (0.07 sec)
+
+mysql> select id,first_name ,salary*2  from employe_details;
++------+------------+----------+
+| id   | first_name | salary*2 |
++------+------------+----------+
+|    1 | ram        |   100000 |
+|    2 | seetha     |    80000 |
+|    3 | lakshman   |    60000 |
+|    4 | seetha     |    40000 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary*2 as doubled from employe_details;
++------+------------+---------+
+| id   | first_name | doubled |
++------+------------+---------+
+|    1 | ram        |  100000 |
+|    2 | seetha     |   80000 |
+|    3 | lakshman   |   60000 |
+|    4 | seetha     |   40000 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary/2  from employe_details;
++------+------------+------------+
+| id   | first_name | salary/2   |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.06 sec)
+
+mysql> select id,first_name ,salary/2  as halved from employe_details;
++------+------------+------------+
+| id   | first_name | halved     |
++------+------------+------------+
+|    1 | ram        | 25000.0000 |
+|    2 | seetha     | 20000.0000 |
+|    3 | lakshman   | 15000.0000 |
+|    4 | seetha     | 10000.0000 |
++------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 from employe_details;
++------+------------+----------+
+| id   | first_name | salary%2 |
++------+------------+----------+
+|    1 | ram        |        0 |
+|    2 | seetha     |        0 |
+|    3 | lakshman   |        0 |
+|    4 | seetha     |        0 |
++------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+COMPARISION OPERATORS:-
+
+mysql> select id,first_name ,salary%2 as modulus from employe_details;
++------+------------+---------+
+| id   | first_name | modulus |
++------+------------+---------+
+|    1 | ram        |       0 |
+|    2 | seetha     |       0 |
+|    3 | lakshman   |       0 |
+|    4 | seetha     |       0 |
++------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name from employe_details where salary<10000;
+Empty set (0.00 sec)						(there is no employee with salary less than 10000, hence itr is showing empty set)
+
+mysql> select first_name, salary from employe_details where salary!=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<>30000;    (<> works same as !=)
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| seetha     |  20000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary<=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| lakshman   |  30000 |
+| seetha     |  20000 |
++------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name, salary from employe_details where salary>=30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| ram        |  50000 |
+| seetha     |  40000 |
+| lakshman   |  30000 |
++------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employe_details(id,first_name,last_name,job_type,dept_no,email) values(5,"mar","manch","Senior software engineer",100,"mmm@gmail.com");
+Query OK, 1 row affected (0.15 sec)  (inserting null value....to do so, dont specify any value in that column)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.07 sec)
+
+mysql> select * from employe_details where salary=NULL;  (if use = it will not give null valued records)
+Empty set (0.05 sec)
+
+mysql> select * from employe_details where salary<=>NULL; (if use = it will gives null valued records)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+LOGICAL OPERATORS:-
+mysql> select * from employe_details where salary=50000 and dept_no=100;		( AND both conditions should be true)
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 and job_type="software engineer";
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary>10000 or job_type="software engineer";  ( OR both conditions should be true)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where not dept_no>=103;  (not is used to check the reverse condition)
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+4 rows in set (0.00 sec)
+
+SPECIAL OPEARTORS:-IN, BETWEEN(between and)
+
+mysql> select * from employe_details where dept_no in(100,103);     (gives records of dept_no 100 and 103)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where First_name in('ram','lakshman');		 (gives records whose first_name is ram and lakshman )
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where dept_no in(100,101,103);
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where salary between 10000 and 30000; 		(gives records whose values are from 10000 to 30000)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.06 sec)
+
+mysql> select * from employe_details where id between 1 and 5;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.19 sec)
+
+mysql> select * from employe_details where id not in(1,2);			//NOT IN
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe_details where id not between 1 and 3;		//NOT BETWEEN AND
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    4 | seetha     | bang      |  20000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where salary not between 10000 and 30000;
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where salary is null;				//is null
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  is null;
+Empty set (0.00 sec)
+
+mysql> select * from employe_details where salary is not null;				// is not null
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like 'r%';			//like
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.07 sec)
+mysql> select * from employe_details where first_name like '%a';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '%ee%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
++------+------------+-----------+--------+-------------------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where last_name like '%ba%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+3 rows in set (0.00 sec)
+mysql> insert into employe_details values(6,'arjun','rjpt',10000,'Support engineer',102,'aaa@gmail.com');
+Query OK, 1 row affected (0.28 sec)
+
+mysql> select *from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer            |     101 | seetha@gmail.com   |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%n';
++------+------------+-----------+--------+------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type         | dept_no | email         |
++------+------------+-----------+--------+------------------+---------+---------------+
+|    6 | arjun      | rjpt      |  10000 | Support engineer |     102 | aaa@gmail.com |
++------+------------+-----------+--------+------------------+---------+---------------+
+1 row in set (0.00 sec)
+mysql> select * from employe_details where first_name not like 'a%n';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like 'a%' or first_name like 's%';
++------+------------+-----------+--------+-------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type          | dept_no | email            |
++------+------------+-----------+--------+-------------------+---------+------------------+
+|    2 | seetha     | bang      |  40000 | software engineer |     101 | seetha@gmail.com |
+|    4 | seetha     | bang      |  20000 | software engineer |     101 | seetha@gmail.com |
+|    6 | arjun      | rjpt      |  10000 | Support engineer  |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer  |     106 | bca@gmail.com    |
++------+------------+-----------+--------+-------------------+---------+------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name like '___%';   //names with atleast 3 characters(use 3 underscores)
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | aman       | rmngr     |  10000 | Support engineer             |     106 | bca@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__m';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '__k%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name not like '__k%';
++------+------------+-----------+--------+--------------------------+---------+------------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email            |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com    |
+|    2 | seetha     | bang      |  40000 | software engineer        |     101 | seetha@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com    |
+|    6 | arjun      | rjpt      |  10000 | Support engineer         |     102 | aaa@gmail.com    |
+|    7 | aman       | rmngr     |  10000 | Support engineer         |     106 | bca@gmail.com    |
++------+------------+-----------+--------+--------------------------+---------+------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name  like '_a_%';
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+4 rows in set (0.00 sec)
+mysql> select * from employe_details where first_name  like '_a_';
++------+------------+-----------+--------+--------------------------+---------+---------------+
+| id   | First_name | Last_name | salary | Job_type                 | dept_no | email         |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer |     100 | ram@gmail.com |
+|    5 | mar        | manch     |   NULL | Senior software engineer |     100 | mmm@gmail.com |
++------+------------+-----------+--------+--------------------------+---------+---------------+
+2 rows in set (0.00 sec)
+FUNCTIONS:-
+AVG()
+
+mysql> select avg(salary) from employe_details;
++-------------+
+| avg(salary) |
++-------------+
+|  26666.6667 |
++-------------+
+1 row in set (0.02 sec)
+
+
+mysql> select avg(salary) as Average from employe_details;
++------------+
+| Average    |
++------------+
+| 26666.6667 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employe_details;
++-------------+
+| max(salary) |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) as Maximum from employe_details;
++---------+
+| Maximum |
++---------+
+|   50000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employe_details;
++-------------+
+| min(salary) |
++-------------+
+|       10000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) as Minimum from employe_details;
++---------+
+| Minimum |
++---------+
+|   10000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employe_details;
++-------------+
+| sum(salary) |
++-------------+
+|      160000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) as total from employe_details;
++--------+
+| total  |
++--------+
+| 160000 |
++--------+
+1 row in set (0.00 sec)
+mysql> select count(salary) from employe_details;
++---------------+
+| count(salary) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) from employe_details;
++-----------+
+| count(id) |
++-----------+
+|         7 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) as count, sum(salary) as sumOfSalary from employe_details where salary>20000;
++-------+-------------+
+| count | sumOfSalary |
++-------+-------------+
+|     3 |      120000 |
++-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) as Average, max(salary) as MaximumSalary from employe_details where dept_no=100;
++------------+---------------+
+| Average    | MaximumSalary |
++------------+---------------+
+| 50000.0000 |         50000 |
++------------+---------------+
+1 row in set (0.00 sec)
+
+24/06/2019
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cov                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (1.75 sec)
+
+mysql> use employee;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employe_details    |
++--------------------+
+1 row in set (0.49 sec)
+
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |   NULL | Senior software engineer     |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | aman       | rmngr     |  10000 | Support engineer             |     106 | bca@gmail.com      |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+7 rows in set (0.66 sec)
+
+mysql> select upper(first_name) from employe_details;
++-------------------+
+| upper(first_name) |
++-------------------+
+| RAM               |
+| SEETHA            |
+| LAKSHMAN          |
+| LAKSHMI           |
+| MAR               |
+| ARJUN             |
+| AMAN              |
++-------------------+
+7 rows in set (0.07 sec)
+
+mysql> select lower(first_name) from employe_details;
++-------------------+
+| lower(first_name) |
++-------------------+
+| ram               |
+| seetha            |
+| lakshman          |
+| lakshmi           |
+| mar               |
+| arjun             |
+| aman              |
++-------------------+
+7 rows in set (0.06 sec)
+
+mysql> select lower(first_name),upper(last_name) from employe_details;
++-------------------+------------------+
+| lower(first_name) | upper(last_name) |
++-------------------+------------------+
+| ram               | MANCH            |
+| seetha            | BANG             |
+| lakshman          | BAN              |
+| lakshmi           | BANG             |
+| mar               | MANCH            |
+| arjun             | RJPT             |
+| aman              | RMNGR            |
++-------------------+------------------+
+7 rows in set (0.00 sec)
+
+mysql> select length(first_name) from employe_details where id=1;
++--------------------+
+| length(first_name) |
++--------------------+
+|                  3 |
++--------------------+
+1 row in set (0.03 sec)
+
+mysql> select length(first_name) from employe_details;
++--------------------+
+| length(first_name) |
++--------------------+
+|                  3 |
+|                  6 |
+|                  8 |
+|                  7 |
+|                  3 |
+|                  5 |
+|                  4 |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name,length(first_name) from employe_details;
++------------+--------------------+
+| first_name | length(first_name) |
++------------+--------------------+
+| ram        |                  3 |
+| seetha     |                  6 |
+| lakshman   |                  8 |
+| lakshmi    |                  7 |
+| mar        |                  3 |
+| arjun      |                  5 |
+| aman       |                  4 |
++------------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select reverse(first_name) from employe_details where id=1;
++---------------------+
+| reverse(first_name) |
++---------------------+
+| mar                 |
++---------------------+
+1 row in set (0.02 sec)
+
+mysql> select reverse(first_name) from employe_details;
++---------------------+
+| reverse(first_name) |
++---------------------+
+| mar                 |
+| ahtees              |
+| namhskal            |
+| imhskal             |
+| ram                 |
+| nujra               |
+| nama                |
++---------------------+
+7 rows in set (0.01 sec)
+
+mysql> select concat(first_name,last_name) as fullname from employe_details;
++-------------+
+| fullname    |
++-------------+
+| rammanch    |
+| seethabang  |
+| lakshmanban |
+| lakshmibang |
+| marmanch    |
+| arjunrjpt   |
+| amanrmngr   |
++-------------+
+7 rows in set (0.03 sec)
+
+mysql> select concat(first_name," ",last_name) as fullname from employe_details;
++--------------+
+| fullname     |
++--------------+
+| ram manch    |
+| seetha bang  |
+| lakshman ban |
+| lakshmi bang |
+| mar manch    |
+| arjun rjpt   |
+| aman rmngr   |
++--------------+
+7 rows in set (0.01 sec)
+
+mysql> select concat(upper(first_name)," ",upper(last_name)) as fullname from employe_details;
++--------------+
+| fullname     |
++--------------+
+| RAM MANCH    |
+| SEETHA BANG  |
+| LAKSHMAN BAN |
+| LAKSHMI BANG |
+| MAR MANCH    |
+| ARJUN RJPT   |
+| AMAN RMNGR   |
++--------------+
+7 rows in set (0.00 sec)
