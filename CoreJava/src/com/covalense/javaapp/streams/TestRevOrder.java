@@ -1,12 +1,14 @@
 package com.covalense.javaapp.streams;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import lombok.extern.java.Log;
 
 @Log
-public class TestStream {
+public class TestRevOrder {
 
 	public static void main(String[] args) {
 		ArrayList<Integer> al = new ArrayList<Integer>();
@@ -15,11 +17,11 @@ public class TestStream {
 		al.add(4);
 		al.add(3);
 		al.add(2);
+
+		Comparator<Integer> c=(i,j)->i.compareTo(j)*-1;
+		List<Integer> k = al.stream().sorted(c).collect(Collectors.toList());
+		log.info("elements in reverse: " + k);
 		
-		List<Integer> l = al.stream().filter(i -> i % 2 != 0).collect(Collectors.toList());
-		log.info("" + l);
-		List<Integer> l2 = al.stream().filter(i -> i % 3 == 0).collect(Collectors.toList());
-		log.info("nums divisible by 3 are" + l2);
 	}
 
 }

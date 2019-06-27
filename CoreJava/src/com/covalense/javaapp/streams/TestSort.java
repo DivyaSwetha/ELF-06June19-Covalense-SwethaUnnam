@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import lombok.extern.java.Log;
 
 @Log
-public class TestA {
+public class TestSort {
 
 	public static void main(String[] args) {
 		ArrayList<Integer> al = new ArrayList<Integer>();
