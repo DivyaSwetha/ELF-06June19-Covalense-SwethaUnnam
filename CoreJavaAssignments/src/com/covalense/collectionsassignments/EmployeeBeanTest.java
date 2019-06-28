@@ -1,7 +1,5 @@
 package com.covalense.javaapp.collectionsassigns;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.TreeSet;
 
 import lombok.extern.java.Log;
@@ -10,13 +8,26 @@ import lombok.extern.java.Log;
 public class EmployeeBeanTest {
 
 	public static void main(String[] args) {
+		
 		CompareIdEmp idc = new CompareIdEmp();
 		CompareNameEmp namec = new CompareNameEmp();
 		CompSalaryEmp salComp = new CompSalaryEmp();
 
-		ArrayList<EmployeeBean> al = new ArrayList<EmployeeBean>();
-
+		TreeSet<EmployeeBean> t = null;
 		int ch = 1;
+		
+		switch (ch) {
+		case 1:
+			t = new TreeSet<EmployeeBean>(idc);
+			break;
+		case 2:
+			t = new TreeSet<EmployeeBean>(namec);
+			break;
+		case 3:
+			t = new TreeSet<EmployeeBean>(salComp);
+			break;
+
+		}
 
 		EmployeeBean e1 = new EmployeeBean();
 		e1.setId(1);
@@ -33,24 +44,11 @@ public class EmployeeBeanTest {
 		e3.setName("Sai");
 		e3.setSalary(22000);
 
-		al.add(e1);
-		al.add(e2);
-		al.add(e3);
+		t.add(e1);
+		t.add(e2);
+		t.add(e3);
 
-		switch (ch) {
-		case 1:
-			Collections.sort(al,new CompareNameEmp());
-			break;
-		case 2:
-			Collections.sort(al,new CompareIdEmp());
-			break;
-		case 3:
-			Collections.sort(al,new CompSalaryEmp());
-			break;
-
-		}
-
-		for (EmployeeBean p : al) {
+		for (EmployeeBean p : t) {
 			log.info("details are : " + p);
 
 		}
