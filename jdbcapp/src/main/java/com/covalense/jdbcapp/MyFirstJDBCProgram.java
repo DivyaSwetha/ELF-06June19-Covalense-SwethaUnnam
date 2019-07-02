@@ -11,7 +11,8 @@ import com.mysql.jdbc.Driver;
 import lombok.extern.java.Log;
 
 @Log
-public class MyFirstJDBCProgram {
+public 
+class MyFirstJDBCProgram {
 
 	public static void main(String[] args) {
 
@@ -22,7 +23,11 @@ public class MyFirstJDBCProgram {
 		try {
 			// 1.Load the "Driver"
 			
-			Class.forName("com.mysql.cj.jdbc.Driver");//for 8th version of mysql connector
+			/*
+			 * Driver driver=new Driver(); DriverManager.registerDriver(driver);
+			 */
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();//for 8th version of mysql connector
 
 			// 2.Get the "DB connection" via driver
 			
@@ -31,6 +36,7 @@ public class MyFirstJDBCProgram {
 			con = DriverManager.getConnection(dbUrl);
 
 			// 3.Issue "sql queries" via "connection"
+			
 			String query = "select * from employee_info";
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
@@ -53,11 +59,9 @@ public class MyFirstJDBCProgram {
 
 			} // End of while
 
-		} catch (SQLException e) {
+		} catch (SQLException|ClassNotFoundException|InstantiationException|IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
+		}  finally {
 			// 5.Close all "JDBC objects
 			try {
 				if (con != null) {
