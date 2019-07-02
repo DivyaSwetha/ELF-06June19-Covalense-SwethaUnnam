@@ -9,7 +9,7 @@ import java.sql.Statement;
 import lombok.extern.java.Log;
 
 @Log
-public class MyFirstJDBCProgram {
+public class StatementExampleTwo {
 
 	public static void main(String[] args) {
 
@@ -18,28 +18,20 @@ public class MyFirstJDBCProgram {
 		ResultSet rs = null;
 
 		try {
-			// 1.Load the "Driver"
 
-			/*
-			 * Driver driver=new Driver(); DriverManager.registerDriver(driver);
-			 */
-
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();// for 8th version of mysql connector
-
-			// 2.Get the "DB connection" via driver
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
 			String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
 
 			con = DriverManager.getConnection(dbUrl);
-			log.info("Connection impl class: " + con.getClass());
+			log.info("" + con.getClass());
 
-			// 3.Issue "sql queries" via "connection"
-
-			String query = "select * from employee_info";
+			String query = "select * from employee_info"
+					      +" where id=1";
+			log.info(query);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
 
-			// 4."Process the results" returned by "sql queries"
 			while (rs.next()) {
 				log.info("ID  	             =====> " + rs.getInt("ID"));
 				log.info("NAME  			 =====> " + rs.getString("NAME"));
@@ -60,7 +52,6 @@ public class MyFirstJDBCProgram {
 		} catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		} finally {
-			// 5.Close all "JDBC objects
 			try {
 				if (con != null) {
 					con.close();
