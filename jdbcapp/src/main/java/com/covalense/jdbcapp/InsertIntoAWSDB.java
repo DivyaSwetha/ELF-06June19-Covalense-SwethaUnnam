@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import lombok.extern.java.Log;
 
 @Log
-public class PreparedStatementExampleThree {
+public class InsertIntoAWSDB {
 
 	public static void main(String[] args) {
 
@@ -21,7 +21,8 @@ public class PreparedStatementExampleThree {
 
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
-			String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
+			String dbUrl = "jdbc:mysql://aws-mysql.cctieuzchhty.ap-south-1.rds.amazonaws.com\r\n" + 
+					":3306/mysqldb?user=root&password=12345678";
 
 			con = DriverManager.getConnection(dbUrl);
 

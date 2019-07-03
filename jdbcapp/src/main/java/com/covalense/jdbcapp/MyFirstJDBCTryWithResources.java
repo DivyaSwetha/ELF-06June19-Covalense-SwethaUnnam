@@ -9,35 +9,26 @@ import java.sql.Statement;
 import lombok.extern.java.Log;
 
 @Log
-public class MyFirstJDBCProgram {
+public class MyFirstJDBCTryWithResources {
 
 	public static void main(String[] args) {
 
-		Connection con = null;
-		Statement stmt = null;
-		ResultSet rs = null;
+		String query = "select * from employee_info";
+		String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
 
-		try {
+		try (Connection con = DriverManager.getConnection(dbUrl); //try with resources..no need no close them manually
+			 Statement stmt = con.createStatement();
+			 ResultSet rs = stmt.executeQuery(query);) {
+			
 			// 1.Load the "Driver"
-
-			/*
-			 * Driver driver=new Driver(); DriverManager.registerDriver(driver);
-			 */
 
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();// for 8th version of mysql connector
 
 			// 2.Get the "DB connection" via driver
 
-			String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
-
-			con = DriverManager.getConnection(dbUrl);
-	 		log.info("Connection impl class: " + con.getClass());
+			log.info("Connection impl class: " + con.getClass());
 
 			// 3.Issue "sql queries" via "connection"
-
-			String query = "select * from employee_info";
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
 
 			// 4."Process the results" returned by "sql queries"
 			while (rs.next()) {
@@ -59,23 +50,7 @@ public class MyFirstJDBCProgram {
 
 		} catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
-		} finally {
-			// 5.Close all "JDBC objects
-			try {
-				if (con != null) {
-					con.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} // End of Try-Catch block
-		}
-
-	}// End of method
+		} //End of try-catch
+	}// End of main
 
 }// End of class

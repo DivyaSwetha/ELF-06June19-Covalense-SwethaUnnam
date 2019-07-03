@@ -1,4 +1,4 @@
-package com.covalense.jdbcapp;
+package com.covalense.jdbcapp.connectionpool;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,32 +9,20 @@ import java.sql.Statement;
 import lombok.extern.java.Log;
 
 @Log
-public class MyFirstJDBCProgram {
+public class ConnectionPoolTest {
 
 	public static void main(String[] args) {
 
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		ConnectionPool pool = null;
 
 		try {
-			// 1.Load the "Driver"
-
-			/*
-			 * Driver driver=new Driver(); DriverManager.registerDriver(driver);
-			 */
-
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();// for 8th version of mysql connector
-
-			// 2.Get the "DB connection" via driver
-
-			String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
-
-			con = DriverManager.getConnection(dbUrl);
-	 		log.info("Connection impl class: " + con.getClass());
-
-			// 3.Issue "sql queries" via "connection"
-
+			pool =ConnectionPool.getConnectionPool();
+			
+			  con = pool.getConnectionFromPool();
+			 
 			String query = "select * from employee_info";
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
@@ -57,14 +45,16 @@ public class MyFirstJDBCProgram {
 
 			} // End of while
 
-		} catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// 5.Close all "JDBC objects
 			try {
-				if (con != null) {
-					con.close();
-				}
+
+				pool.returnConnectionToPool(con);
+				/*
+				 * if (con != null) { con.close(); }
+				 */
 				if (stmt != null) {
 					stmt.close();
 				}

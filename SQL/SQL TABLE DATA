@@ -1,0 +1,37 @@
+CREATE DATABASE COVALENSE_DB;
+
+
+EMPLOYEE_INFO                                        EMPLOYEE_OTHERINFO                                  EMPLOYEE_ADDRESSINFO                      DEPARTMENT_INFO            
+-----------------------------------                  -------------------                                 -------------------                       -------------------
+													 ID						(PK)(INT)                    ID						(PK)(INT)          DEPT_ID	(PK)(INT)
+ID (PK) 			(INT)                            PAN						(VARCHAR)                ADDRESS_TYPE			(PK)(VARCHAR)      DEPT_NAME   	(VARCHAR)
+NAME  				(VARCHAR)                        ISMARRIED					(BOOLEAN)                ADDRESS1					(VARCHAR)
+AGE					(INT)                            BLOOD_GRP					(VARCHAR)                ADDRESS2					(VARCHAR)
+GENDER				(VARCHAR)                        ISCHALLENGED				(BOOLEAN)                LANDMARK					(VARCHAR)
+SALARY				(DOUBLE)                         EMERGENCY_CONTACT_NUMBER	(LONG)                   CITY						(VARCHAR)
+PHONE				(LONG)                           EMERGENCY_CONTACT_NAME		(VARCHAR)                STATE						(VARCHAR)
+JOINING_DATE		(DATE)                           NATIONALITY				(VARCHAR)                COUNTRY					(VARCHAR)
+ACCOUNT_NUMBER		(LONG)                           RELIGION					(VARCHAR)                PINCODE            		(INT)
+EMAIL				(VARCHAR)                        FATHER_NM					(VARCHAR)                                          
+DESIGNATION			(VARCHAR)                        MOTHER_NM					(VARCHAR)                                         
+DOB     			(DATE)                           SPOUSE_NM					(VARCHAR)                                        
+DEPT_ID	(FK)    	(INT)                            PASSPORT					(VARCHAR)                                       
+MNGR_ID				(INT)                            ADHAR						(LONG)                                    
+													                                                     
+                                                                                                         
+EMPLOYEE_EDUCATIONAL_INFO                           EMPLOYEE_EXPERIENCE_INFO                             TRAINING_INFO                              EMPLOYEE_TRAINING
+--------------------------------------              --------------------------------------               --------------------------------------     --------------------------------------
+ID						(PK)(INT)                   ID						(PK)(INT)                    COURSE_ID				(PK)(INT)           ID						(PK)(INT)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+EDUCATION_TYPE			(PK)(VARCHAR)               COMPANY_NAME			(PK)(VARCHAR)                COURSE_NAMEPK				(VARCHAR)       COURSE_ID				(PK)(INT)
+DEGREE_TYPE					(VARCHAR)               DESIGNATION					(VARCHAR)                DURATION					(VARCHAR)                              
+BRANCH						(VARCHAR)               JOINING_DATE				(DATE)                   COURSE_TYPE 				(VARCHAR)                                
+COLLEGE_NM					(VARCHAR)               LEAVING_DATE				(DATE)                                                                                    
+UNIVERSITY					(VARCHAR)                                                                                                                                          
+YOP							(VARCHAR)                                                                                                                                   
+PERCENTAGE					(DOUBLE)                                                                                            
+LOCATION					(VARCHAR)                                                                                          
+                                                    
+                                                                             
+                                                                            
+                       
+                 

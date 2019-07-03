@@ -2,7 +2,6 @@ package com.covalense.jdbcapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,7 +14,6 @@ public class StatementExampleTwo {
 
 		Connection con = null;
 		Statement stmt = null;
-		ResultSet rs = null;
 
 		try {
 
@@ -24,30 +22,12 @@ public class StatementExampleTwo {
 			String dbUrl = "jdbc:mysql://localhost:3306/covalense_db?user=root&password=password";
 
 			con = DriverManager.getConnection(dbUrl);
-			log.info("" + con.getClass());
 
-			String query = "select * from employee_info"
-					      +" where id=1";
-			log.info(query);
+			String query = "insert into employee_info values"
+					+ " (12,'Mani',22,'female',21000.0,9876545678,'2018-06-30',12456809,'mani@gmail.com','Test engineer','1997-02-03',17,111)";
 			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
-
-			while (rs.next()) {
-				log.info("ID  	             =====> " + rs.getInt("ID"));
-				log.info("NAME  			 =====> " + rs.getString("NAME"));
-				log.info("AGE				 =====> " + rs.getInt("AGE"));
-				log.info("GENDER			 =====> " + rs.getString("GENDER"));
-				log.info("SALARY			 =====> " + rs.getDouble("SALARY"));
-				log.info("PHONE			     =====> " + rs.getLong("PHONE"));
-				log.info("JOINING_DATE		 =====> " + rs.getDate("JOINING_DATE"));
-				log.info("ACCOUNT_NUMBER	 =====> " + rs.getLong("ACCOUNT_NUMBER"));
-				log.info("EMAIL			 	 =====> " + rs.getString("EMAIL"));
-				log.info("DESIGNATION		 =====> " + rs.getString("DESIGNATION"));
-				log.info("DOB     			 =====> " + rs.getDate("DOB"));
-				log.info("DEPT_ID	         =====> " + rs.getInt("DEPT_ID"));
-				log.info("MNGR_ID			 =====> " + rs.getInt("MNGR_ID"));
-
-			} // End of while
+			int result = stmt.executeUpdate(query);
+			log.info("rows affected: " + result);
 
 		} catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -59,9 +39,7 @@ public class StatementExampleTwo {
 				if (stmt != null) {
 					stmt.close();
 				}
-				if (rs != null) {
-					rs.close();
-				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} // End of Try-Catch block
