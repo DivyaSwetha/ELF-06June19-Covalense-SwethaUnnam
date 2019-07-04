@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.covalense.xmlexample.dto.EmployeeDetailsBean"
+		table="employe_details">
+
+		<id name="id" type="int" column="id">
+		</id>
+
+		<property name="firstName" column="First_name"
+			type="java.lang.String" />
+		<property name="secondName" column="Last_name"
+			type="java.lang.String" />
+		<property name="salary" column="salary" type="int" />
+		<property name="jobType" column="Job_type"
+			type="java.lang.String" />
+		<property name="deptNo" column="dept_no" type="int" />
+		<property name="email" column="email" type="java.lang.String" />
+
+
+	</class>
+</hibernate-mapping>
