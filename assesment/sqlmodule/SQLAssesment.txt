@@ -1,0 +1,85 @@
+1.Write a query to display Employee name, his salary along with the designation for all the employee.
+Q.select First_name,salary,Job_type from employee_details;
+2.Write a query to obtain name and his current salary and new salary with a hike 25 % for all the Employee.
+Q.select First_name,salary,salary+(salary*25/100) hike from employee_details;
+3.Write a query to display all the details of the Employee who are working as salesman.
+Q.select * from employee_details where Job_type='salesman';
+4.Write a query to display all the employees of Dept.no 20.
+Q.select * from employee_details where dept_no=20;
+5.Write a query to display all the Employees DOB before 1994.
+q.select * from employee_details where DOB < (1994-02-01);
+6.Write a query to display all the employees whose annual salary is less than 30,000.
+Q.SELECT * from employee_details where salary*12 < 30000;
+7.Write a query to display name, salary and Annual salary of all the clerks.
+Q.select First_name,salary, salary*12 annualsalary from employee_details where Job_type='clerk';
+8.Write a query to display all the details of Employee Whoever Hired after Feb of 2013.
+Qselect * from employee_info where JOINING_DATE > 2013-02-01;
+9.Write a query to display managers working in deptno 20 only if salary is greater than 2500.
+Q.select * from employee_info where DEPT_ID=111 and salary < 2500;
+10.Write a query to display all the employee excluding Analyst.
+Qselect * from employee_info where DESIGNATION!='Analyst';
+11.Write a query to display all the employees excluding salesman who are working in department 30.
+Qselect * from employee_details where Job_type!='salesman' or dept_no!=30;
+12.Write a query to display names of all the employee who are working in dept 30 as manager OR all the names of employee who are working as a clerk and salary less than 2000.
+Q.SELECT First_name  Manager from employee_details where dept_no=30 or (Job_type='clerk' and salary<2000);
+13.Write a query to display all the Employees in dept 20 only if their salary is greater than 1000 and less than 3500, including 1000 & 3500.
+Q.SELECT * from employee_details where dept_no=20 and salary in(1000,3500);
+14.Write a query to display all the details of Employees who are working as clerk in deptno 20,30 or 40.
+Q.select * from employee_details where Job_type='clerk' and dept_no in(20,30,40);
+15.Write a query to display the details of software developer, manager or clerk who are working in dept.  10 or 20 and salary is greater than 1500.
+Qselect * from employee_details where Job_type in('software engineer','manager','clerk') and dept_no in(10,20) and salary>1500;
+16. Write a query to display all the details of Employees who are working in department 10,20 excluding all the Salesman and Analyst.
+Qselect * from employee_details where dept_no in (10,20) and Job_type not in('salesman','Analyst');
+17. Write a query to display name, Salary for all the Employees who are working in dept 10 or 20 and their annual salary between 20,000 and 40,000 including the limits.
+Q.select First_name,salary FROM employee_details where  (select salary*12 from employee_details where dept_no in(10,20)) not in(20000,40000) 
+18.Write a query to display all the details of employees who were hire in the month of September working in dept 20 or 30.
+Q select * from employee_details where hire="september" and dept_id in (20,30)
+19.Write a query to display their name and DOJ of employee who works as salesman or clerk and their names has at least one S or E.
+Q.SELECT NAME,JOINING_DATE from employee_info where DESIGNATION in('salesman','clerk') and (NAME like '%s%' or name like '%e%');
+20.Write a query to display Average salary and Highest salary of dept. 20.
+Q.select avg(salary) AverageSalary,max(salary) HighestSalary from employee_details where dept_no=20;
+21.Write a query to display date of first and last Hired Employees.
+Q.select JOINING_DATE from employee_info having max(id) and  min(id);
+22.Write a query to display AVG Salary of Employees by excluding president and manager(job).
+Q.select avg(salary) averagesalary from employee_details where Job_type not in('president','manager');
+23.Write a query to display the total salary and average salary of each department
+Q.select sum(salary) TotalSalary,avg(salary) from employee_details group by dept_no;
+24.Write a query to find the highest and least salary of an Employee in each job by excluding the employees whose name has ‘R’ as the last but one character.
+Q.select max(salary) HighestSalary,min(salary) from employee_details where First_name like '%R_' group by Job_type;
+26. Write a query to list the employee whose designation are same as Vikas    or Rahul.
+Q.select * from employee_details where Job_type=(select Job_type from employee_details where First_name='vikas' or First_name='rahul');
+27. Write a query to List the employee whose salary is equal to the average of max and minimum.
+Q.select * from employee_details where salary=(select ((max(salary)+min(salary))/2) avg FROM employee_details);
+28. Write a query to display employee name, department name and the location of all employee.
+Q.select First_name,dept_name,location from employee_details;
+29. Write a query to display all the details of employee whose name begins with the consonants.
+Q.select * from employee_details where First_name not like 'a%' or First_name not like 'e%' or First_name not like 'i%' or First_name not like 'o%' or First_name not like 'u%';
+30. Create a Views from Employee_Info table .Views should have all  the record whose salary is greater than 10000.
+Q.
+CREATE
+    /*[ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
+    [DEFINER = { user | CURRENT_USER }]
+    [SQL SECURITY { DEFINER | INVOKER }]*/
+    VIEW `employee`.`view1` 
+    AS
+    (SELECT * FROM employee_details where salary>1000);
+31.31.  Create a trigger which will work before deletion in employee_info table     and create a duplicate copy of the record in another table employee_backup
+Q.DELIMITER $$
+
+CREATE
+    /*[DEFINER = { user | CURRENT_USER }]*/
+    TRIGGER `employee`.`trig1` BEFORE DELETE
+    ON `employee`.`<employee_details>`
+    FOR EACH ROW BEGIN
+insert into employee_new values(new.id,new.name);
+    END$$
+
+DELIMITER ;
+32.What is Driver Class?
+A.Driver class  is a concrete class present in jar files provided by the DB vendor which implements the driver interface present in java.sql i.e., api .
+33.What is DB URL?
+A.identifies db type of applications , STRUCTURE:- Protocol:Sub-Protocol:SubName
+SubName:-Hostname,port,DBName,username and password
+e.g jdbc:mysql://localhost:3306:dbname/user,password
+
+
