@@ -1,0 +1,116 @@
+mysql> select * from employe_details;
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+| id   | First_name | Last_name | salary | Job_type                     | dept_no | email              |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+|    1 | ram        | manch     |  50000 | Senior software engineer     |     100 | ram@gmail.com      |
+|    2 | seetha     | bang      |  40000 | software engineer            |     101 | seetha@gmail.com   |
+|    3 | lakshman   | ban       |  30000 |  Assistant software engineer |     103 | lakshman@gmail.com |
+|    4 | lakshmi    | bang      |  20000 | software engineer            |       4 | lak@gmail.com      |
+|    5 | mar        | manch     |  60000 | Admin                        |     100 | mmm@gmail.com      |
+|    6 | arjun      | rjpt      |  10000 | Support engineer             |     102 | aaa@gmail.com      |
+|    7 | vihan      | aaa       |  15000 | catalog developer            |     105 | vihi@gmail.com     |
+|    8 | vikki      | vethal    |  21000 | ASETO                        |       8 | vv@gmail.com       |
++------+------------+-----------+--------+------------------------------+---------+--------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT min(salary),Job_type from employe_details where first_name not like '%s' group by job_type;
++-------------+------------------------------+
+| min(salary) | Job_type                     |
++-------------+------------------------------+
+|       50000 | Senior software engineer     |
+|       20000 | software engineer            |
+|       30000 |  Assistant software engineer |
+|       60000 | Admin                        |
+|       10000 | Support engineer             |
+|       15000 | catalog developer            |
+|       21000 | ASETO                        |
++-------------+------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employe_details where first_name like '_____' and job_type like '_____';
++------+------------+-----------+--------+----------+---------+--------------+
+| id   | First_name | Last_name | salary | Job_type | dept_no | email        |
++------+------------+-----------+--------+----------+---------+--------------+
+|    8 | vikki      | vethal    |  21000 | ASETO    |       8 | vv@gmail.com |
++------+------------+-----------+--------+----------+---------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employe_info where job_type like 'soft%';
+ERROR 1146 (42S02): Table 'employee.employe_info' doesn't exist
+mysql> select max(salary),job_type from employe_details group by job_type;
++-------------+------------------------------+
+| max(salary) | job_type                     |
++-------------+------------------------------+
+|       50000 | Senior software engineer     |
+|       40000 | software engineer            |
+|       30000 |  Assistant software engineer |
+|       60000 | Admin                        |
+|       10000 | Support engineer             |
+|       15000 | catalog developer            |
+|       21000 | ASETO                        |
++-------------+------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select dept_no,count(id) NumberOfEmployees from employe_details group by dept_no;
++---------+-------------------+
+| dept_no | NumberOfEmployees |
++---------+-------------------+
+|     100 |                 2 |
+|     101 |                 1 |
+|     103 |                 1 |
+|       4 |                 1 |
+|     102 |                 1 |
+|     105 |                 1 |
+|       8 |                 1 |
++---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT min(salary),Job_type from employe_details where first_name not like '%s' group by job_type;
++-------------+------------------------------+
+| min(salary) | Job_type                     |
++-------------+------------------------------+
+|       50000 | Senior software engineer     |
+|       20000 | software engineer            |
+|       30000 |  Assistant software engineer |
+|       60000 | Admin                        |
+|       10000 | Support engineer             |
+|       15000 | catalog developer            |
+|       21000 | ASETO                        |
++-------------+------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select dept_name,Job_type from employee_details where Job_type='software engineer';
++------------+-------------------+
+| dept_name  | Job_type          |
++------------+-------------------+
+| production | software engineer |
+| production | software engineer |
++------------+-------------------+
+2 rows in set (0.00 sec)
+
+(3RD MAX SALARY)
+mysql> select max(salary) from employee_details where salary<(select max(salary) from employee_details where salary<(select max(salary) from employee_details));
++-------------+
+| max(salary) |
++-------------+
+|       40000 |
++-------------+
+1 row in set (0.00 sec)
+
+(4TH MAX SALARY)
+mysql> select max(salary) from employee_details where salary<(select max(salary) from employee_details where salary<(select max(salary) from employee_details where salary<(select max(salary) from employee_details)));
++-------------+
+| max(salary) |
++-------------+
+|       30000 |
++-------------+
+1 row in set (0.00 sec)
+
+(4 TH MINIMUM SALARY)
+mysql> select min(salary) from employee_details where salary>(select min(salary) from employee_details where salary>(select min(salary) from employee_details where salary>(select min(salary) from employee_details)));
++-------------+
+| min(salary) |
++-------------+
+|       20000 |
++-------------+
+1 row in set (0.00 sec)
