@@ -16,24 +16,32 @@ public class MyFirstServlet extends HttpServlet{
 			throws ServletException, IOException {
 
 		String currentDateTime=new Date().toString();
+		String fnameValue=req.getParameter("fname");
+		String lnameValue=req.getParameter("lname");
+
 
 		String htmlResponse = "<!DOCTYPE html>"+
 									"<html>"+
 									"<head>"+
 									"<meta charset=\"ISO-8859-1\">"+
-									"<title>My First HTML</title>"+
+									"<title>My First HTML</title>"+ 
 									"</head>"+
 									"<body>"+
 									"	<h1>"+
 									"		Current Date & Time : <br>"+
 									"		 <span style=\"color: blue\">"+currentDateTime+"</span>"+
+									"		<br><br>"+
+									"         First Name : "+fnameValue+
+									"		<br> "+
+
+									"         Last Name : "+lnameValue+
 									"	</h1>"+
 									"</body>"+
 									"</html>";
 		
 		//send the Above HTML Response to Browser
-		resp.setContentType("text/html");
-		resp.setHeader("Refresh", "1"); 		//Auto refresh for every second
+		resp.setContentType("html/text");
+		//resp.setHeader("Refresh", "1"); 		//Auto refresh for every second
 		PrintWriter out=resp.getWriter();
 		out.print(htmlResponse);
 		
