@@ -8,12 +8,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+                     
 public class MyFirstServlet extends HttpServlet{
+       public	MyFirstServlet(){
+		
+		System.out.println("Inside the constructor");
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		
+		String httpMethod=req.getMethod();
+		String protocol=req.getProtocol();
+		String requestUrl=req.getRequestURL().toString();
+		
+		System.out.println("Http Method: "+httpMethod);
+		System.out.println(" Protocol: "+protocol);
+		System.out.println("Request URL: "+requestUrl);
 
 		String currentDateTime=new Date().toString();
 		String fnameValue=req.getParameter("fname");
@@ -40,7 +52,7 @@ public class MyFirstServlet extends HttpServlet{
 									"</html>";
 		
 		//send the Above HTML Response to Browser
-		resp.setContentType("html/text");
+		resp.setContentType("text/html");
 		//resp.setHeader("Refresh", "1"); 		//Auto refresh for every second
 		PrintWriter out=resp.getWriter();
 		out.print(htmlResponse);

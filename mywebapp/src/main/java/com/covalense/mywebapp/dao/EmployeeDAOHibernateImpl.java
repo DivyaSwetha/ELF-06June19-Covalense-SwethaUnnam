@@ -39,8 +39,8 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 		return bean;
 	}
 	}
-
-	private boolean saveOrUpdate(EmployeeInfoBean bean) {
+    @Override
+	public boolean saveOrUpdate(EmployeeInfoBean bean) {
 		Transaction txn = null;
 		try (Session session = HibernateUtil.openSession();){
 			txn = session.beginTransaction();
@@ -48,7 +48,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 			txn.commit();
 			return true;
 		} catch (Exception e) {
-			log.severe(Arrays.deepToString(e.getStackTrace()));
+			log.severe(Arrays.toString(e.getStackTrace()));
 			if(txn!=null) {
 				txn.rollback();
 			}

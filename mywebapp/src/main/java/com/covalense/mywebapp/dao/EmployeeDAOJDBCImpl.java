@@ -147,4 +147,10 @@ public class EmployeeDAOJDBCImpl implements EmployeeDAO {
 		return false;
 	}
 
+	@Override
+	public boolean saveOrUpdate(EmployeeInfoBean bean) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }// End of class

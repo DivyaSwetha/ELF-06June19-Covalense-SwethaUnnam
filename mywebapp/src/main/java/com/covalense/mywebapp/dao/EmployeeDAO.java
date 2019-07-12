@@ -6,7 +6,7 @@ import com.covalense.mywebapp.beans.EmployeeInfoBean;
 
 public interface EmployeeDAO {
 	List<EmployeeInfoBean> getAllEmployeeInfo();
-
+	boolean saveOrUpdate(EmployeeInfoBean bean);
 	EmployeeInfoBean getEmployeeInfo(String id);
 
 	EmployeeInfoBean getEmployeeInfo(int id);
