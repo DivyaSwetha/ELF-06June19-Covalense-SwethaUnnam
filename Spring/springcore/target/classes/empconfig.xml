@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+      
+<!--<bean id="employeeBean1" class="com.covalense.springcore.beans.EmployeeBean" scope="prototype" autowire="byName">
+ -->        
+ <bean id="employeeBean1" class="com.covalense.springcore.beans.EmployeeBean" scope="prototype" autowire="byType">
+ <property name="id" value="1"/>
+        <property name="name" value="Ram"/>
+        <!-- <property name="deptBean" ref="departmentBean"/> -->
+        
+        
+        </bean>
+        
+        <bean id="Developing" class="com.covalense.springcore.beans.DepartmentBean">
+         <property name="deptId" value="101"/>
+        <property name="deptName" value="IT"/>
+        </bean>
+        <bean id="Hr" class="com.covalense.springcore.beans.DepartmentBean" autowire-candidate="false">
+         <property name="deptId" value="102"/>
+        <property name="deptName" value="HR"/>
+        </bean>
+        <bean id="Testing" class="com.covalense.springcore.beans.DepartmentBean" autowire-candidate="false">
+         <property name="deptId" value="103"/>
+        <property name="deptName" value="Testing"/>
+        </bean>
+        
+</beans>
