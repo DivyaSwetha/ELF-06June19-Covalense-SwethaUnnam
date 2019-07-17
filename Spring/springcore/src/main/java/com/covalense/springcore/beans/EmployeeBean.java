@@ -1,7 +1,7 @@
 package com.covalense.springcore.beans;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import lombok.Data;
 import lombok.extern.java.Log;
@@ -11,7 +11,14 @@ import lombok.extern.java.Log;
 public class EmployeeBean{
 	private int id;
 	private String name;
+	@Autowired
+	@Qualifier("it")
 	private DepartmentBean departmentBean;
+	
+	
+	
+	
+	
 	//init and destroy methods
 	public void init() throws Exception {
 		log.info("Initialization phase");

@@ -12,7 +12,7 @@ import lombok.extern.java.Log;
 public class EmployeeTestManualWiring {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("empconfig.xml");
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("importallcfg.xml");
 		EmployeeBean empBean1 = (EmployeeBean) applicationContext.getBean("employeeBean1");
 		log.info("Employee id: " + empBean1.getId());
 		log.info("Employee Name: " + empBean1.getName());
