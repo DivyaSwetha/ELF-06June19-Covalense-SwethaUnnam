@@ -65,18 +65,24 @@ public class CreateEmployeeInfoServlet extends HttpServlet{
 		bean.setDesignation(designationValue);
 		
 		EmployeeDAO dao = EmployeeDAOFactory.getInstance();
-		dao.createEmployeeInfo(bean);
+		boolean result=dao.createEmployeeInfo(bean);
 		
 		PrintWriter out=resp.getWriter();
+		if(result==false) {
 		
 		out.print("<HTML>");
+		out.print("<BODY>");
+		out.print("<H1><span style=\"color: blue\">Failed to insert details of Employee ...</H1></span>");
+		out.print("</BODY>");
+		out.print("</HTML>");
+	
+	}else {
 		out.print("<BODY>");
 		out.print("<H1><span style=\"color: blue\">Details of Employee "+nameValue+" has inserted successfully...</H1></span>");
 		out.print("</BODY>");
 		out.print("</HTML>");
-	
 	}
 	
 	
-
+	}
 }

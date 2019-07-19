@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.covalense.mywebapp.beans.EmployeeInfoBean;
                      
 public  class MyFirstServlet extends HttpServlet{
 	
@@ -67,6 +69,28 @@ public  class MyFirstServlet extends HttpServlet{
 		//resp.setHeader("Refresh", "1"); 		//Auto refresh for every second
 		PrintWriter out=resp.getWriter();
 		out.print(htmlResponse);
+		
+		//Get the object from forward servlet
+				EmployeeInfoBean empInfo=(EmployeeInfoBean) ctx.getAttribute("info");
+				if(empInfo==null) {
+					out.print("<HTML>");
+					out.print("<BODY>");
+					out.print("<H1><span style=\"color: blue\">EmployeeInfoBean object not found!!!</H1></span>");
+					out.print("</BODY>");
+					out.print("</HTML>");
+				}else {
+
+					out.print("<HTML>");
+					out.print("<BODY>");
+					out.print("<H1><span style=\"color: blue\">EmployeeInfoBean object found...</H1></span>");
+					out.print("<BR>");
+					out.print("<BR> Id of employee is: " + empInfo.getId());
+					out.print("<BR> Name of employee is: " + empInfo.getName());
+					out.print("<BR> Phone no. is: " + empInfo.getPhone());
+					out.print("<BR> Email id is: " + empInfo.getEmail());
+					out.print("</BODY>");
+					out.print("</HTML>");
+				}
 		
 	}//End of doGet
 	
