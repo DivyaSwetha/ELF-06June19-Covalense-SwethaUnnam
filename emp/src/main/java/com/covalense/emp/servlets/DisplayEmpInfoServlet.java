@@ -24,6 +24,7 @@ public class DisplayEmpInfoServlet extends HttpServlet{
 		Session session=HibernateUtil.openSession();
 		ServletContext ctx=getServletContext();
 		PrintWriter out=resp.getWriter();
+	
 		Object emp=ctx.getAttribute("Eid");
 		int eid=(int) emp;
 		EmployeeInfoBean empInfo=session.get(EmployeeInfoBean.class,eid);
@@ -54,7 +55,10 @@ public class DisplayEmpInfoServlet extends HttpServlet{
 			
 		}
 
-	
 	}
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+doPost(req, resp);
+}
 }

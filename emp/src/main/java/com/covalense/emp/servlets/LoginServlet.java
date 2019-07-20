@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,14 @@ import com.covalense.emp.util.HibernateUtil;
 public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		//check cookies are disabled
+		if(req.getCookies()==null) {
+			req.getRequestDispatcher("CookiesDisabled.html").include(req, resp);
+			return;
+		}
+		
 		int empId=Integer.parseInt(req.getParameter("id"));
 		String empPass=req.getParameter("password");
 		Session session=HibernateUtil.openSession();
@@ -28,10 +37,13 @@ public class LoginServlet extends HttpServlet{
 		EmployeeInfoBean empBean=(EmployeeInfoBean) ctx.getAttribute("info");
 		PrintWriter out=resp.getWriter();
 		RequestDispatcher dispatcher=null;
-		if((emp.getId()==empId)&&(emp.getPassword().equals(empPass))) {
+		if((empBean==null)&&(emp.getPassword().equals(empPass))) {
 			//valid credentials; create a session
 			HttpSession httpSession=req.getSession(true);
+			
 			resp.sendRedirect("search.html");
+			httpSession.setAttribute("data", emp);
+			httpSession.setAttribute("eid",empId);
 			
 		}else {
 			

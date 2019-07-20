@@ -22,11 +22,12 @@
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar">
+            </span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">EMP</a>
+        <form method="GET"><a class="navbar-brand" href="/emp/empinfo"><i class="fa fa-user" aria-hidden="true"></i></a></form>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -35,7 +36,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><form action="/emp/empinfo" method="post"><input type="submit" value="Employee Info"></form></li>
+                    <li><form action="/emp/empinfo" method="POST"><input type="submit" value="Employee Info"></form></li>
                     <li><form action="/emp/empinfo"><a href="#"><input type="submit" value="Employee Other Info"></a></form></li>
                     <li><form action="/emp/empinfo"><a href="#"><input type="submit" value="Department Info"></a></form></li>
                     <li class="divider"></li>
@@ -45,7 +46,7 @@
             </li>
         </ul>
         <div class="col-sm-3 col-md-3 pull-right">
-            <form class="navbar-form" role="search" action="/emp/search" >
+            <form class="navbar-form" role="search" action="/emp/empsearch" >
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search with id..." name="id">
                     <div class="input-group-btn">
