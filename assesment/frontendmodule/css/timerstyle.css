@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+  }
+  .container{
+        
+    background-color: bisque;
+    width: 400px;
+    height: 200px;
+    padding:80px;
+    margin-left: 500px;
+    margin-top: 200px;
+}
