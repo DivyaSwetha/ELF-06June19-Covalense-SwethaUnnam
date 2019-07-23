@@ -31,7 +31,7 @@ public class DisplayEmpInfoServlet extends HttpServlet{
 		RequestDispatcher dispatcher=null;
 		
 		if(empInfo==null) {
-			dispatcher=req.getRequestDispatcher("search.html");
+			dispatcher=req.getRequestDispatcher("search.html"); 
 			dispatcher.include(req, resp);
 			out.print("<HTML>");
 			out.print("<BODY>");

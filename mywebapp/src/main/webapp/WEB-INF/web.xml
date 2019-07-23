@@ -5,20 +5,27 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   
+  
+  
   <context-param>
   <param-name>movie</param-name>
   <param-value>Sholay</param-value>
   </context-param>
   
   <servlet>
+  <servlet-name>myJsp</servlet-name>
+  <jsp-file>/MyFirstJsp.jsp</jsp-file>
+  </servlet>
+  
+  <servlet>
   <servlet-name>myFirstServlet</servlet-name>
   <servlet-class>com.covalense.mywebapp.servlets.MyFirstServlet</servlet-class>
-  
   <init-param>
   <param-name>actor</param-name>
   <param-value>Gabbar Singh</param-value>
   </init-param>
   </servlet>
+  
   <servlet>
   	<servlet-name>RedirectServlet</servlet-name>
   	<display-name>RedirectServlet</display-name>
@@ -38,5 +45,10 @@
   <servlet-mapping>
   	<servlet-name>RedirectServlet</servlet-name>
   	<url-pattern>/redirect</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  <servlet-name>myJsp</servlet-name>
+  <url-pattern>/currentDateJsp</url-pattern>
   </servlet-mapping>
 </web-app>

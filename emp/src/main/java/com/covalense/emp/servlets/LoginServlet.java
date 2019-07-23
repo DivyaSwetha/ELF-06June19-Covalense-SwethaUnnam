@@ -46,10 +46,10 @@ public class LoginServlet extends HttpServlet{
 			httpSession.setAttribute("eid",empId);
 			
 		}else {
+			String url="./loginFail?msg=Invalid Credentials!!! please try again";
+			dispatcher=req.getRequestDispatcher(url);
+			dispatcher.forward(req,resp);
 			
-			dispatcher=req.getRequestDispatcher("index.html");
-			dispatcher.include(req,resp);
-			out.println("<center><span style=\"color: red;\"font-size:\"60px\"\">Invalid credentials!!!</span></center>");
 			
 			//resp.sendRedirect("index.html");
 			

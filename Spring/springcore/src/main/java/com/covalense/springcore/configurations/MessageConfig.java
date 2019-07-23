@@ -1,12 +1,13 @@
 package com.covalense.springcore.configurations;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.covalense.springcore.beans.MessageBean;
-
-@Configuration
+//@Configuration
+//@Repository
+@Component
 public class MessageConfig {
 	@Bean
 	@Scope("prototype")
