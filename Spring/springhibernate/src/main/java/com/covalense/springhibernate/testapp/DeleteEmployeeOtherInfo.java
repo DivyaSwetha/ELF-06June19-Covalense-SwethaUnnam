@@ -1,3 +1,4 @@
+
 package com.covalense.springhibernate.testapp;
 
 import org.hibernate.Session;

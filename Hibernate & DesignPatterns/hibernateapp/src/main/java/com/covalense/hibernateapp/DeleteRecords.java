@@ -15,8 +15,8 @@ public class DeleteRecords {
 		//cfg.configure("hibernate.cfg.xml");
 		//cfg.addAnnotatedClass(EmployeeInfoBean.class);
 
-		SessionFactory factory=HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		//SessionFactory factory=HibernateUtil.getSe();
+		Session session = HibernateUtil.getSession();
 
 		EmployeeInfoBean employee = session.get(EmployeeInfoBean.class, 17);
 		Transaction transaction = session.beginTransaction();
