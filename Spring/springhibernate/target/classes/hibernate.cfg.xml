@@ -16,6 +16,8 @@
 		<mapping class="com.covalense.springhibernate.beans.EmployeeInfoBean" />
 		<mapping class="com.covalense.springhibernate.beans.EmployeeOtherInfoBean" />
 		<mapping class="com.covalense.springhibernate.beans.DepartmentInfoBean" />
+		<mapping class="com.covalense.springhibernate.beans.EmployeeAddressInfoBean" />
+		
 		
 	</session-factory>
 </hibernate-configuration>
