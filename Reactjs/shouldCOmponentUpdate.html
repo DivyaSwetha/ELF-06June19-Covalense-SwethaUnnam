@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src= "https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <body>
+  
+    <div id="mydiv"></div>
+
+    <script type="text/babel">
+	
+      class Header extends React.Component {
+	  constructor(props){
+	  super(props);
+	  this.state={
+	  favouritecolor:"yellow"
+	  };
+	  }
+    /* static getDerivedStateFromProps(props,state){
+        return{favouritecolor:props.favcol}
+    } */
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    changeColor=()=>{
+        this.setState({favouritecolor:"blue"});
+    }
+
+        render() {
+          return (<div>
+          <h1>My Favourite color is {this.state.favouritecolor}</h1>
+         
+         <button type="button" onClick={this.changeColor}>Change Color</button>
+          </div>);
+        }
+      }
+	  ReactDOM.render(<Header/>,document.getElementById('mydiv'));
+      
+    </script>
+
+  </body>
+</html>
