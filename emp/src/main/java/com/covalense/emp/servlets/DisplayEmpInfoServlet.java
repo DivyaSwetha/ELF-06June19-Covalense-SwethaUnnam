@@ -26,7 +26,7 @@ public class DisplayEmpInfoServlet extends HttpServlet{
 		PrintWriter out=resp.getWriter();
 	
 		Object emp=ctx.getAttribute("Eid");
-		int eid=(int) emp;
+		int eid=(Integer) emp;
 		EmployeeInfoBean empInfo=session.get(EmployeeInfoBean.class,eid);
 		RequestDispatcher dispatcher=null;
 		

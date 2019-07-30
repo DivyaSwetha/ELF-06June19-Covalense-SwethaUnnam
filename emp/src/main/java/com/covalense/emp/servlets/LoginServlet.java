@@ -41,12 +41,12 @@ public class LoginServlet extends HttpServlet{
 			//valid credentials; create a session
 			HttpSession httpSession=req.getSession(true);
 			
-			resp.sendRedirect("search.html");
+			resp.sendRedirect("search.jsp");
 			httpSession.setAttribute("data", emp);
 			httpSession.setAttribute("eid",empId);
 			
 		}else {
-			String url="./loginFail?msg=Invalid Credentials!!! please try again";
+			String url="/loginFail?msg=Invalid Credentials!!! please try again";
 			dispatcher=req.getRequestDispatcher(url);
 			dispatcher.forward(req,resp);
 			

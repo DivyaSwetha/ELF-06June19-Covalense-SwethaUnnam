@@ -24,11 +24,10 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	HttpSession session=req.getSession();
 	RequestDispatcher dispatcher=null;
 	if(session==null) {
-		out.println("<center><span style=\"color: red;\"font-size:\"60px\"\">Invalid credentials!!!</span></center>");
-		dispatcher=req.getRequestDispatcher("index.html");
-		dispatcher.include(req,resp);
+		dispatcher=req.getRequestDispatcher("/loginFail?msg=Invalid credentials!!!");
+		dispatcher.forward(req,resp);
 	}else {
-		dispatcher=req.getRequestDispatcher("index.html");
+		dispatcher=req.getRequestDispatcher("/loginJsp.jsp");
 		dispatcher.forward(req, resp);
 	}
 		

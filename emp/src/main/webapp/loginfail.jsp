@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +22,7 @@
 			<div class="container">
 				<div class="signup-content">
 					<div style="align: center; color: red; margin-left: 100px">
-						<span><%= request.getParameter("msg")%></span>
+						<span>${msg }</span>
 					</div>
 					<form method="POST" id="signup-form" class="signup-form"
 						action="/emp/login">

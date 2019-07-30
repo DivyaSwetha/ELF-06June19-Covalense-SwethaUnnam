@@ -3,6 +3,7 @@ package com.covalense.emp.dao;
 import java.util.List;
 
 import com.covalense.emp.beans.EmployeeInfoBean;
+import com.covalense.emp.beans.EmployeeOtherInfoBean;
 
 
 public interface EmployeeDAO {
@@ -19,5 +20,11 @@ public interface EmployeeDAO {
 	boolean deleteEmployeeInfo(int id);
 
 	boolean deleteEmployeeInfo(String id);
+	boolean createEmployeeOtherInfo(EmployeeOtherInfoBean bean);
+	boolean saveOrUpdate(EmployeeOtherInfoBean bean);
+	List<Integer> getAllEmployeeIds(String id);
+	List<String> getAllEmployeeNames(String id);
+	
+	
 
 }

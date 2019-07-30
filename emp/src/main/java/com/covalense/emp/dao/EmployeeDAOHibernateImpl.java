@@ -9,21 +9,22 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.covalense.emp.beans.EmployeeInfoBean;
+import com.covalense.emp.beans.EmployeeOtherInfoBean;
 import com.covalense.emp.util.HibernateUtil;
 
 import lombok.extern.java.Log;
+
 @Log
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
 	@Override
 	public List<EmployeeInfoBean> getAllEmployeeInfo() {
-		try(SessionFactory factory = HibernateUtil.getSessionFactory();
-				Session session = factory.openSession();){
-		String hql="from EmployeeInfoBean";
-		Query query=session.createQuery(hql);
-		List<EmployeeInfoBean> empBeans=query.list();
-		return empBeans;
-	}
+		try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
+			String hql = "from EmployeeInfoBean";
+			Query query = session.createQuery(hql);
+			List<EmployeeInfoBean> empBeans = query.list();
+			return empBeans;
+		}
 	}
 
 	@Override
@@ -33,23 +34,24 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
 	@Override
 	public EmployeeInfoBean getEmployeeInfo(int id) {
-		EmployeeInfoBean bean=null;
-		try(Session session = HibernateUtil.openSession();){
-		 bean = session.get(EmployeeInfoBean.class, id);
-		return bean;
+		EmployeeInfoBean bean = null;
+		try (Session session = HibernateUtil.openSession();) {
+			bean = session.get(EmployeeInfoBean.class, id);
+			return bean;
+		}
 	}
-	}
-    @Override
+
+	@Override
 	public boolean saveOrUpdate(EmployeeInfoBean bean) {
 		Transaction txn = null;
-		try (Session session = HibernateUtil.openSession();){
+		try (Session session = HibernateUtil.openSession();) {
 			txn = session.beginTransaction();
 			session.saveOrUpdate(bean);
 			txn.commit();
 			return true;
 		} catch (Exception e) {
 			log.severe(Arrays.toString(e.getStackTrace()));
-			if(txn!=null) {
+			if (txn != null) {
 				txn.rollback();
 			}
 			return false;
@@ -70,16 +72,16 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 	@Override
 	public boolean deleteEmployeeInfo(int id) {
 		Transaction txn = null;
-		EmployeeInfoBean bean=new EmployeeInfoBean();
+		EmployeeInfoBean bean = new EmployeeInfoBean();
 		bean.setId(id);
-		try (Session session = HibernateUtil.openSession();){
+		try (Session session = HibernateUtil.openSession();) {
 			txn = session.beginTransaction();
 			session.delete(bean);
 			txn.commit();
 			return true;
 		} catch (Exception e) {
 			log.severe(Arrays.deepToString(e.getStackTrace()));
-			if(txn!=null) {
+			if (txn != null) {
 				txn.rollback();
 			}
 			return false;
@@ -91,4 +93,46 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 		return deleteEmployeeInfo(Integer.parseInt(id));
 	}
 
+	@Override
+	public boolean createEmployeeOtherInfo(EmployeeOtherInfoBean bean) {
+		return saveOrUpdate(bean);
+	}
+
+	@Override
+	public boolean saveOrUpdate(EmployeeOtherInfoBean bean) {
+		Transaction txn = null;
+		try (Session session = HibernateUtil.openSession();) {
+			txn = session.beginTransaction();
+			session.saveOrUpdate(bean);
+			txn.commit();
+			return true;
+		} catch (Exception e) {
+			log.severe(Arrays.toString(e.getStackTrace()));
+			if (txn != null) {
+				txn.rollback();
+			}
+			return false;
+		}
+	}
+
+
+	@Override
+	public List<Integer> getAllEmployeeIds(String id) {
+		try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
+			String hql = "select e.id,e.name from EmployeeInfoBean e where str(e.id) LIKE "+"\'"+id+"%\'";
+			Query query = session.createQuery(hql);
+			List<Integer> empIds = query.list();
+			return empIds;
+		}
+	}
+		
+		@Override
+		public List<String> getAllEmployeeNames(String id) {
+			try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
+				String hql = "select e.name from EmployeeInfoBean e where str(e.id) LIKE "+"\'"+id+"%\'";
+				Query query = session.createQuery(hql);
+				List<String> empNames = query.list();
+				return empNames;
+			}
+	}
 }

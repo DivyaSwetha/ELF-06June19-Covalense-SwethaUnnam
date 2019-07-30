@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.covalense.emp.beans.EmployeeInfoBean;
+import com.covalense.emp.beans.EmployeeOtherInfoBean;
 import com.covalense.emp.dao.EmployeeDAO;
 import com.covalense.emp.dao.EmployeeDAOFactory;
 
@@ -31,12 +32,12 @@ public class CreateEmployeeInfoServlet extends HttpServlet{
 		String salaryValue= req.getParameter("salary");
 		String phoneValue =req.getParameter("phone");
 		String jdateValue =req.getParameter("joiningDate");
-		String accnumValue= req.getParameter("accnum");
+		String accnumValue= req.getParameter("accountNumber");
 		String emailValue = req.getParameter("email");
 		String designationValue= req.getParameter("designation");
 		String dobValue= req.getParameter("dob");
-		String deptidValue =req.getParameter("deptid");
-		String mngridValue= req.getParameter("mngrid");
+		String deptidValue =req.getParameter("departmentId");
+		String mngridValue= req.getParameter("managerId");
 		String passwordValue=req.getParameter("password");
 		
 		EmployeeInfoBean bean=new EmployeeInfoBean();
@@ -59,35 +60,62 @@ public class CreateEmployeeInfoServlet extends HttpServlet{
 		bean.setId(Integer.parseInt(idValue));
 		bean.setName(nameValue);
 		bean.setAge(Integer.parseInt(ageValue));
-		bean.setPhone(Long.parseLong(phoneValue));
+		bean.setPhone(893);
 		bean.setSalary(Double.parseDouble(salaryValue));
 		bean.setEmail(emailValue);
-		bean.setAccountNumber(Long.parseLong(accnumValue));
+		bean.setAccountNumber(123);
 		bean.setDepartmentId(Integer.parseInt(deptidValue));
 		bean.setManagerId(Integer.parseInt(mngridValue));
 		bean.setGender(genderValue);
 		bean.setDesignation(designationValue);
+		bean.setPassword(passwordValue);
+		
+		//String idValue1=req.getParameter("id");
+        String emergencyContact=req.getParameter("emergencyNo");
+        String emergencyName=req.getParameter("emergencyName");
+        String motherName=req.getParameter("MotherName");
+        String spouse=req.getParameter("spousename");
+        String maritalstatus=req.getParameter("maritalstatus");
+        String nationality=req.getParameter("nationality");
+        String passport=req.getParameter("passport");
+        String bloodgroup=req.getParameter("bloodgroup");
+        String religion=req.getParameter("religion");
+        String aadhar=req.getParameter("aadhar");
+        String challenged=req.getParameter("challenged");
+        String fathername=req.getParameter("fathername");
+        String pan=req.getParameter("pan");
+        
+        
+        EmployeeOtherInfoBean empother=new EmployeeOtherInfoBean();
+       // empother.setId(Integer.parseInt(idValue));
+        empother.setAdhar(Long.parseLong(aadhar));
+        empother.setBlood_grp(bloodgroup);
+        empother.setEmergency_contact_name(emergencyContact);
+        empother.setEmergency_contact_number(Long.parseLong(emergencyContact));
+        empother.setFather_nm(fathername);
+        empother.setIschallenged(Boolean.parseBoolean(challenged));
+        empother.setIsmarried(Boolean.parseBoolean(maritalstatus));
+        empother.setMother_nm(motherName);
+        empother.setNationality(nationality);
+        empother.setPan(pan);
+        empother.setPassport(passport);
+        empother.setReligion(religion);
+        empother.setSpouse_nm(spouse);
+        
+        bean.setOtherInfo(empother);
 		
 		EmployeeDAO dao = EmployeeDAOFactory.getInstance();
 		boolean result=dao.createEmployeeInfo(bean);
 		
-		PrintWriter out=resp.getWriter();
 		
-		/*
-		 * out.print("<HTML>"); out.print("<BODY>");
-		 * out.print("<H1><span style=\"color: blue\">Details of Employee "
-		 * +nameValue+" has inserted successfully...</H1></span>");
-		 * out.print("</BODY>"); out.print("</HTML>");
-		 */
+	
 		RequestDispatcher dispatcher=null;
 		if(result==true) {
-			out.println("<span style=\"color: green\">Account created Succesfully, Login to acces your account</span>");
-			dispatcher=req.getRequestDispatcher("index.html");
-			dispatcher.include(req,resp);
+			dispatcher=req.getRequestDispatcher("loginfail.jsp?msg=Registration successfull, Please login !!!");
+			dispatcher.forward(req,resp);
 		}else {
-			out.println("<span style=\"color: red\">Account creation failed, please try again</span>");
-			dispatcher=req.getRequestDispatcher("index.html");
-			dispatcher.include(req,resp);
+			dispatcher=req.getRequestDispatcher("loginfail.jsp?msg=Registration failed, Please try again !!!");
+			dispatcher.forward(req,resp);
 		}
 		
 		

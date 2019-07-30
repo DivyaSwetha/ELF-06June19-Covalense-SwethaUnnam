@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.covalense.emp.beans.EmployeeInfoBean;
+import com.covalense.emp.beans.EmployeeOtherInfoBean;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory ;
@@ -13,6 +14,7 @@ public class HibernateUtil {
 		return new Configuration()
 				.configure()
 				.addAnnotatedClass(EmployeeInfoBean.class)
+				.addAnnotatedClass(EmployeeOtherInfoBean.class)
 				.buildSessionFactory();
 	}
 	private HibernateUtil() {

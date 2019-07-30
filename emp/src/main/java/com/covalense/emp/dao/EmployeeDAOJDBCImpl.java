@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.covalense.emp.beans.EmployeeInfoBean;
+import com.covalense.emp.beans.EmployeeOtherInfoBean;
 
 import lombok.extern.java.Log;
 
@@ -151,6 +153,31 @@ public class EmployeeDAOJDBCImpl implements EmployeeDAO {
 	public boolean saveOrUpdate(EmployeeInfoBean bean) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean createEmployeeOtherInfo(EmployeeOtherInfoBean bean) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean saveOrUpdate(EmployeeOtherInfoBean bean) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public List<Integer> getAllEmployeeIds(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllEmployeeNames(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }// End of class
