@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.PropertySource;
@@ -27,20 +29,24 @@ import com.covalense.emp.util.HibernateUtil;
 
 @Controller
 @RequestMapping("/employeeportal")
-@PropertySource("classpath:springmvc.properties")
+@PropertySource("classpath:emp.properties")
 public class EmployeeInfoController {
+	@Autowired
+	@Qualifier("hibernate")
+	EmployeeDAO dao;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
 
-	@GetMapping("/index")
+	@GetMapping("/loginpage")
 	public String getIndex() {
-		return "myForm";
+		return "loginPage";
 	}
 
-	@PostMapping("/login1")
+	@PostMapping("/authenticate")
 	public String getHome(EmployeeInfoBean empBean, ModelMap modelMap, HttpServletRequest req) {
 		int userId = Integer.parseInt(req.getParameter("id"));
 		String password = req.getParameter("password");
@@ -50,11 +56,11 @@ public class EmployeeInfoController {
 		modelMap.addAttribute("empInfo", emp);
 		if ((emp!= null) && (emp.getPassword().equals(password))) {
 			HttpSession httpSession = req.getSession(true);
-			return "search";
+			return "homePage";
 		} else {
 			String message = "Invalid Credentials!!! please try again";
 			modelMap.addAttribute("msg", message);
-			return "loginfail";
+			return "loginPage";
 		}
 
 	}
@@ -67,10 +73,10 @@ public class EmployeeInfoController {
 
 	@PostMapping("/insert")
 	public String getRegister(EmployeeInfoBean empInfo, ModelMap modelMap) {
-		EmployeeDAO dao = EmployeeDAOFactory.getInstance();
+		//EmployeeDAO dao = EmployeeDAOFactory.getInstance();
 		boolean status = dao.createEmployeeInfo(empInfo);
 		modelMap.addAttribute("empInfo", empInfo);
-		if (status == true) {
+		if (status == true) {	
 			modelMap.addAttribute("msg", "Succesfully Registered, Please login");
 			return "registerfail";
 		} else {
@@ -95,7 +101,7 @@ public class EmployeeInfoController {
 		
 		session.invalidate();
 		modelMap.addAttribute("msg", "Thanks for visiting!!!Have a nice day");
-		return "myForm";
+		return "loginPage";
 	}
 
 	@GetMapping("/validate/{url}")
@@ -103,7 +109,7 @@ public class EmployeeInfoController {
 		if (session.isNew()) {
 			modelMap.addAttribute("msg", msg);
 			session.invalidate();
-			return "loginfail";
+			return "loginPage";
 		}
 		return "forward:/employeeportal/"+url;
 	}// End of validateSession()

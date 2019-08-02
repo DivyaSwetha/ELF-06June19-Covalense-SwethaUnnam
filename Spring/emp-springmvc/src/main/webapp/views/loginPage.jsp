@@ -18,8 +18,8 @@
     <div class="col-md-4   mx-auto card mt-4 offset-12"  >
         <div class="card-body justify-content-center">
             <h4 class="text-center border-bottom">Employee Portal</h4><br><br>
- 			<div style="color:blue;align:center">${msg }</div>
-             <form action="./login1" method="POST">
+ 			<div style="color:red;align:center">${msg }</div>
+             <form action="./authenticate" method="POST">
                 <div class="form-group">
                         <div class="input-group mb-3">
                                 <div class="input-group-prepend">

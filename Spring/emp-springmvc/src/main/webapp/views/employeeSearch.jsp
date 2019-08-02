@@ -1,4 +1,4 @@
-<%@ page session="true" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <%@page import="com.covalense.emp.dto.EmployeeInfoBean"%>
 <%@page import="java.util.Iterator"%>
@@ -39,7 +39,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/logout">Logout</a></li>
+            <li class="active"><a href="./logout">Logout</a></li>
             <!-- <li><a href="#">Link</a></li> -->
            <!--  <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -54,11 +54,11 @@
             </li> -->
         </ul>
        <div class="col-sm-3 col-md-3 pull-right">
-            <form class="navbar-form" role="search" action="../validate/search" >
+            <form class="navbar-form" role="search" action="../employee/search" >
                 <div class="input-group">
                     <input  type="text" class="form-control" placeholder="Search with id..." name="id">
                     <div class="input-group-btn">
-                    <input hidden type="text" class="form-control" placeholder="Search with id..." name="url" value="search">
+                  <!--   <input hidden type="text" class="form-control" placeholder="Search with id..." name="url" value="search"> -->
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 </div>
@@ -69,23 +69,14 @@
 
 <!-- Search Navbar - END -->
 
-</div>
-	<% 
-		  EmployeeDAO dao = EmployeeDAOFactory.getInstance();
-         
-          String idValue=request.getParameter("id");
-          List<Integer> idList = dao.getAllEmployeeIds(idValue);
-         // Query query=HibernateUtil.openSession().createQuery("from EmployeeInfoBean where str(id) LIKE 'idValue%'");
-        //  List<Integer> ids=query.list();
-          %>
-          <%-- <% Iterator<EmployeeInfoBean> itr=idList.iterator();
-          while(itr.hasNext()){ %>
-          <a href=""><%= itr.next() %></a><br>
-          <%} %> --%>
+</div><%-- 
           <% for(Integer emps:idList){ %>
           <a href=""><%=emps %></a><br>
           <%} %>
-		 
+           --%>
+		 <c:forEach items="${idList}" var="item">
+    ${item}<br>
+</c:forEach>
 
 
 </body>

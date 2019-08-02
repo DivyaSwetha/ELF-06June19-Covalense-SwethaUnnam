@@ -167,12 +167,8 @@ public class EmployeeDAOJDBCImpl implements EmployeeDAO {
 		return false;
 	}
 
-
-	@Override
-	public List<Integer> getAllEmployeeIds(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	 
 
 	@Override
 	public List<String> getAllEmployeeNames(String id) {
@@ -180,4 +176,14 @@ public class EmployeeDAOJDBCImpl implements EmployeeDAO {
 		return null;
 	}
 
+	@Override
+	public List<Integer> getAllEmployeeIds(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * @Override public List<Integer> getAllEmployeeIds(int id) { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 }// End of class

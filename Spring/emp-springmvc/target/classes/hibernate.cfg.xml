@@ -12,7 +12,7 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
-<!--  		<mapping class="com.covalense.hibernateapp.dto.EmployeeInfoBean" />  -->
+ 		<mapping class="com.covalense.emp.dto.EmployeeInfoBean" /> 
+ 		<mapping class="com.covalense.emp.dto.EmployeeOtherInfoBean" />
 	</session-factory>
 </hibernate-configuration>

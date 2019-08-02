@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.covalense.emp.dto.EmployeeInfoBean;
 import com.covalense.emp.dto.EmployeeOtherInfoBean;
@@ -17,9 +18,15 @@ import lombok.extern.java.Log;
 @Log
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	/*
+	 * @Autowired private HibernateUtil hibernateUtil;
+	 */
 	@Override
 	public List<EmployeeInfoBean> getAllEmployeeInfo() {
-		try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
+		try (Session session = sessionFactory.openSession();) {
 			String hql = "from EmployeeInfoBean";
 			Query query = session.createQuery(hql);
 			List<EmployeeInfoBean> empBeans = query.list();
@@ -35,7 +42,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 	@Override
 	public EmployeeInfoBean getEmployeeInfo(int id) {
 		EmployeeInfoBean bean = null;
-		try (Session session = HibernateUtil.openSession();) {
+		try (Session session = sessionFactory.openSession();) {
 			bean = session.get(EmployeeInfoBean.class, id);
 			return bean;
 		}
@@ -44,7 +51,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 	@Override
 	public boolean saveOrUpdate(EmployeeInfoBean bean) {
 		Transaction txn = null;
-		try (Session session = HibernateUtil.openSession();) {
+		try (Session session = sessionFactory.openSession();) {
 			txn = session.beginTransaction();
 			session.saveOrUpdate(bean);
 			txn.commit();
@@ -74,7 +81,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 		Transaction txn = null;
 		EmployeeInfoBean bean = new EmployeeInfoBean();
 		bean.setId(id);
-		try (Session session = HibernateUtil.openSession();) {
+		try (Session session = sessionFactory.openSession();) {
 			txn = session.beginTransaction();
 			session.delete(bean);
 			txn.commit();
@@ -101,7 +108,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 	@Override
 	public boolean saveOrUpdate(EmployeeOtherInfoBean bean) {
 		Transaction txn = null;
-		try (Session session = HibernateUtil.openSession();) {
+		try (Session session = sessionFactory.openSession();) {
 			txn = session.beginTransaction();
 			session.saveOrUpdate(bean);
 			txn.commit();
@@ -115,24 +122,24 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 		}
 	}
 
-
 	@Override
 	public List<Integer> getAllEmployeeIds(String id) {
-		try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
-			String hql = "select e.id from EmployeeInfoBean e where str(e.id) LIKE "+"\'"+id+"%\'";
+		try (Session session = sessionFactory.openSession();) {
+			String hql = "select e.id from EmployeeInfoBean e where str(e.id) LIKE " + "\'" + id + "%\'";
 			Query query = session.createQuery(hql);
 			List<Integer> empIds = query.list();
+
 			return empIds;
 		}
 	}
-		
-		@Override
-		public List<String> getAllEmployeeNames(String id) {
-			try (SessionFactory factory = HibernateUtil.getSessionFactory(); Session session = factory.openSession();) {
-				String hql = "select e.name from EmployeeInfoBean e where str(e.id) LIKE "+"\'"+id+"%\'";
-				Query query = session.createQuery(hql);
-				List<String> empNames = query.list();
-				return empNames;
-			}
+
+	@Override
+	public List<String> getAllEmployeeNames(String id) {
+		try (Session session = sessionFactory.openSession();) {
+			String hql = "select e.name from EmployeeInfoBean e where str(e.id) LIKE " + "\'" + id + "%\'";
+			Query query = session.createQuery(hql);
+			List<String> empNames = query.list();
+			return empNames;
+		}
 	}
 }
