@@ -1,9 +1,17 @@
 package com.covalense.hibernateapp.dto;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.covalense.hibernateapp.dto.primary.EmployeeInfoBean;
 
 import lombok.Data;
 
@@ -13,12 +21,18 @@ import lombok.Data;
 public class TrainingInfoBean {
 	@Id
 	@Column(name="COURSE_ID")
-	private int course_id;
+	private int courseId;
 	@Column(name="COURSE_NAME")
-	private String course_name;
+	private String courseName;
 	@Column(name="DURATION")
 	private String duration;
 	@Column(name="COURSE_TYPE")
-	private String course_type;
+	private String courseType;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="EMPLOYEE_TRAINING_INFO",
+			   joinColumns= {@JoinColumn(name="COURSE_ID")},
+			   inverseJoinColumns = {@JoinColumn(name="ID")})
+	List<EmployeeInfoBean> empInfoBeans;
 
-}
+}//end of TrainingInfoBean

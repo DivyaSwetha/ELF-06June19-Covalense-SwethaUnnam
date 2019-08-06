@@ -19,7 +19,7 @@ public class ReadRecordsOtherInfo {
 		Session session = factory.openSession();
 
 		EmployeeOtherInfoBean employee = session.get(EmployeeOtherInfoBean.class, 1);
-		log.info("Is challenged: "+employee.getBlood_grp());
+		log.info("Is challenged: "+employee.getBloodGroup());
 		
 	}
 

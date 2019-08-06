@@ -3,9 +3,12 @@ package com.covalense.hibernateapp.dto;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.covalense.hibernateapp.manytoone.EmployeeExperiencePKBean;
 
 import lombok.Data;
 
@@ -13,17 +16,13 @@ import lombok.Data;
 @Entity
 @Table(name = "employee_experience_info")
 public class EmployeeExperienceInfoBean {
-	@Id
-	@Column(name = "ID")
-	private int id;
-	@Id
-	@Column(name = "COMPANY_NAME")
-	private String company_name;
+	@EmbeddedId
+	private EmployeeExperiencePKBean empPKBean;
 	@Column(name = "DESIGNATION")
 	private String designation;
 	@Column(name = "JOINING_DATE")
-	private Date joining_date;
+	private Date joiningDate;
 	@Column(name = "LEAVING_DATE")
-	private Date leaving_date;
+	private Date leavingDate;
 
 }

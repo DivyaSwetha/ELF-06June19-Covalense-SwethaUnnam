@@ -19,19 +19,19 @@ public class SaveEmployeeOtherInfo {
 
 		EmployeeOtherInfoBean empOther = new EmployeeOtherInfoBean();
 		empOther.setAdhar(123409875642l);
-		empOther.setBlood_grp("A+ve");
-		empOther.setId(11);
-		empOther.setEmergency_contact_name("Ram");
-		empOther.setEmergency_contact_number(7653826908l);
-		empOther.setFather_nm("Rayudu");
+		empOther.setBloodGroup("A+ve");
+		//empOther.setId(11);
+		empOther.setEmergencyContactName("Ram");
+		empOther.setEmergencyContactNum(7653826908l);
+		empOther.setFatherName("Rayudu");
 		empOther.setIschallenged(false);
 		empOther.setIsmarried(false);
-		empOther.setMother_nm("Mani");
+		empOther.setMotherName("Mani");
 		empOther.setNationality("Indian");
 		empOther.setPan("AHAU123P");
 		empOther.setPassport("P1409999");
 		empOther.setReligion("Christian");
-		empOther.setSpouse_nm("No");
+		empOther.setSpouseName("No");
 
 		Transaction transaction = session.beginTransaction();
 		session.save(empOther);

@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.covalense.hibernateapp.dto.EmployeeInfoBean;
+import com.covalense.hibernateapp.dto.primary.EmployeeInfoBean;
 import com.covalense.hibernateapp.util.HibernateUtil;
 
 public class DeleteRecords {

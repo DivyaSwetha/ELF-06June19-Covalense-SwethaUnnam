@@ -14,14 +14,12 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
 @Table(name = "employee_info")
 public class EmployeeInfoBean implements Serializable {
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private EmployeeOtherInfoBean otherInfo;
-	
+
 	@Id
 	@Column(name = "ID")
 	private int id;
@@ -61,5 +59,8 @@ public class EmployeeInfoBean implements Serializable {
 
 	@Column(name = "MNGR_ID")
 	private int mngrId;
+	
+	@Column(name = "password")
+	private String password;
 
 }

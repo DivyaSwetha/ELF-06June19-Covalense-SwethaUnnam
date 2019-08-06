@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 
-import com.covalense.hibernateapp.dto.EmployeeInfoBean;
+import com.covalense.hibernateapp.dto.primary.EmployeeInfoBean;
 import com.covalense.hibernateapp.util.HibernateUtil;
 
 import lombok.extern.java.Log;

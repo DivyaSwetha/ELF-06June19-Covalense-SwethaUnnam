@@ -1,22 +1,23 @@
 package com.covalense.hibernateapp.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.covalense.hibernateapp.manytoone.EmployeeAddressPKBean;
 
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="employee_addressinfo")
-public class EmployeeAddressInfoBean {
-	@Id
-	@Column(name="ID")
-	private int id;
-	@Id
-	@Column(name="ADDRESS_TYPE")
-	private String address_type;
+public class EmployeeAddressInfoBean implements Serializable{
+	@EmbeddedId
+	private EmployeeAddressPKBean addressPKBean;
 	@Column(name="ADDRESS1")
 	private String address1;
 	@Column(name="ADDRESS2")

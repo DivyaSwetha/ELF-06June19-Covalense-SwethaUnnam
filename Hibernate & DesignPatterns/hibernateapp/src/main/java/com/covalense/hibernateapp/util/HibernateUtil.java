@@ -18,8 +18,6 @@ public class HibernateUtil {
 		 */
 		return new Configuration()
 					.configure()
-					.addAnnotatedClass(EmployeeInfoBean.class)
-					.addAnnotatedClass(EmployeeOtherInfoBean.class)
 					.buildSessionFactory();
 	}
 	

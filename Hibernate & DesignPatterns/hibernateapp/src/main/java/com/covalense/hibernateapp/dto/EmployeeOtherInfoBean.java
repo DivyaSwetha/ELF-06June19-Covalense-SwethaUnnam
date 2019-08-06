@@ -2,20 +2,29 @@ package com.covalense.hibernateapp.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.covalense.hibernateapp.dto.primary.EmployeeInfoBean;
 
 import lombok.Data;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
 @Table(name="EMPLOYEE_OTHERINFO")
 public class EmployeeOtherInfoBean implements Serializable{
+	@OneToOne
 	@Id
-	@Column(name="ID")
-	private int id;
+	@JoinColumn(name="ID")
+	//@PrimaryKeyJoinColumn(name="ID")
+	private EmployeeInfoBean empInfo;
 	
 	@Column(name="PAN")
 	private String pan;
@@ -24,16 +33,16 @@ public class EmployeeOtherInfoBean implements Serializable{
 	private boolean ismarried;
 	
 	@Column(name="BLOOD_GRP")
-	private String blood_grp;
+	private String bloodGroup;
 	
 	@Column(name="ISCHALLENGED")
 	private boolean ischallenged;
 	
 	@Column(name="EMERGENCY_CONTACT_NUMBER")
-	private long emergency_contact_number;
+	private long emergencyContactNum;
 	
 	@Column(name="EMERGENCY_CONTACT_NAME")
-	private String emergency_contact_name;
+	private String emergencyContactName;
 	
 	@Column(name="NATIONALITY")
 	private String nationality;
@@ -42,13 +51,13 @@ public class EmployeeOtherInfoBean implements Serializable{
 	private String religion;
 	
 	@Column(name="FATHER_NM")
-	private String father_nm;
+	private String fatherName;
 	
 	@Column(name="MOTHER_NM")
-	private String mother_nm;
+	private String motherName;
 	
 	@Column(name="SPOUSE_NM")
-	private String spouse_nm;
+	private String spouseName;
 	
 	@Column(name="PASSPORT")
 	private String passport;

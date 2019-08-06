@@ -1,9 +1,12 @@
 package com.covalense.hibernateapp.dto;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.covalense.hibernateapp.manytoone.EmployeeEducationalPKBean;
 
 import lombok.Data;
 
@@ -11,12 +14,8 @@ import lombok.Data;
 @Entity
 @Table(name="employee_educational_info")
 public class EmployeeEducationalInfo {
-	@Id
-	@Column(name="ID")
-	private int id;
-	@Id
-	@Column(name="EDUCATION_TYPE")
-	private String education_type;
+	@EmbeddedId
+	private EmployeeEducationalPKBean empEducationInfo;
 	@Column(name="DEGREE_TYPE")
 	private String degree_type;
 	@Column(name="BRANCH")

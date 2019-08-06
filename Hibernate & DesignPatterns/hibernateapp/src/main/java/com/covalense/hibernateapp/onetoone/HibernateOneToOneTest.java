@@ -18,7 +18,7 @@ public class HibernateOneToOneTest {
 	public static void main(String[] args) throws ParseException {
 		
 		//Prepare Data
-		int id=19;
+		int id=26;
 		EmployeeInfoBean data=PrepareDataUtil.prepareData(id);
 		//Save
 		save(data);

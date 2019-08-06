@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import com.covalense.hibernateapp.dto.EmployeeInfoBean;
+import com.covalense.hibernateapp.dto.primary.EmployeeInfoBean;;
 
 public class SaveRecords {
 
@@ -27,7 +27,7 @@ public class SaveRecords {
 		Date join=format.parse("2019-03-21");
 
 		EmployeeInfoBean employee = new EmployeeInfoBean();
-		employee.setId(18);
+		employee.setId(25);
 		employee.setName("usha");
 		employee.setAge(22);
 		employee.setPhone(9988006655l);
@@ -35,7 +35,7 @@ public class SaveRecords {
 		employee.setEmail("usha@gmail.com");
 		employee.setAccountNumber(123454589087l);
 		employee.setDeptId(11);
-		employee.setMngrId(111);
+		//employee.setMngrId(111);
 		employee.setGender("female");
 		employee.setJoiningDate(join);
 		employee.setDesignation("Software Engineer");

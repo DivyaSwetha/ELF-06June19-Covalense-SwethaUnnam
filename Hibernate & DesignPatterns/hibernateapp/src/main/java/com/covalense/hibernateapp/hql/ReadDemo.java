@@ -3,10 +3,8 @@ package com.covalense.hibernateapp.hql;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import com.covalense.hibernateapp.dto.EmployeeInfoBean;
 import com.covalense.hibernateapp.util.HibernateUtil;
 
 import lombok.extern.java.Log;
